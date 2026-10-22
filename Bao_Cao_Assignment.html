@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Cáo Dự Án Assignment - Website TECHZONE - SV: Phạm Trương Vĩ Khang</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14pt;
+            line-height: 1.5;
+            color: #000000;
+            background: #f0f2f5;
+            padding: 30px 15px;
+        }
+        .page {
+            max-width: 900px;
+            margin: 0 auto 30px auto;
+            background: #ffffff;
+            padding: 50px 60px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+
+        /* Top Action Bar (hidden on print) */
+        .action-bar {
+            max-width: 900px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 14px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .action-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 7px 16px;
+            border: 1.5px solid #000;
+            background: #fff;
+            color: #000;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn:hover {
+            background: #000;
+            color: #fff;
+        }
+        .btn-primary {
+            background: #000;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #333;
+        }
+
+        /* Cover Page Styling */
+        .cover-page {
+            border: 3px double #000000;
+            padding: 40px 30px;
+            min-height: 980px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+        }
+        .cover-top h3 {
+            font-size: 15pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .cover-top h4 {
+            font-size: 13pt;
+            font-weight: normal;
+            margin-top: 4px;
+            margin-bottom: 25px;
+        }
+        .cover-logo {
+            max-width: 280px;
+            margin: 10px auto 30px auto;
+            display: block;
+        }
+        .cover-middle h1 {
+            font-size: 26pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+        .cover-middle h2 {
+            font-size: 17pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #222;
+            margin-bottom: 20px;
+        }
+        .cover-middle .subject {
+            font-size: 14pt;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        .cover-middle .project-name {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #000;
+            text-transform: uppercase;
+            border: 1.5px solid #000;
+            display: inline-block;
+            padding: 10px 25px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+        }
+        .cover-table {
+            width: 80%;
+            margin: 30px auto 0 auto;
+            border-collapse: collapse;
+            font-size: 13pt;
+        }
+        .cover-table td {
+            padding: 8px 12px;
+            border: none;
+            text-align: left;
+        }
+        .cover-table td:first-child {
+            font-weight: bold;
+            width: 45%;
+        }
+        .cover-bottom {
+            font-size: 13pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Typography */
+        h1.section-title {
+            font-size: 17pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 2px solid #000;
+            padding-bottom: 6px;
+            margin-top: 40px;
+            margin-bottom: 18px;
+        }
+        h2.sub-title {
+            font-size: 15pt;
+            font-weight: bold;
+            margin-top: 24px;
+            margin-bottom: 10px;
+        }
+        h3.item-title {
+            font-size: 14pt;
+            font-weight: bold;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+        p {
+            text-align: justify;
+            margin-bottom: 12px;
+            text-indent: 25px;
+        }
+        p.no-indent {
+            text-indent: 0;
+        }
+
+        /* Tables */
+        table.doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 24px 0;
+            font-size: 12.5pt;
+        }
+        table.doc-table th, table.doc-table td {
+            border: 1px solid #000000;
+            padding: 8px 10px;
+            vertical-align: top;
+        }
+        table.doc-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            text-align: center;
+        }
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-right { text-align: right; }
+
+        /* Images and Captions */
+        .figure-box {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .figure-box img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #000;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        .caption {
+            font-size: 11pt;
+            font-style: italic;
+            color: #333;
+            margin-top: 8px;
+            text-indent: 0;
+            text-align: center;
+        }
+
+        /* Code Blocks */
+        pre.code-box {
+            background: #f7f7f7;
+            border: 1px solid #ccc;
+            border-left: 4px solid #000;
+            padding: 12px 14px;
+            font-family: Consolas, 'Courier New', monospace;
+            font-size: 11pt;
+            line-height: 1.45;
+            overflow-x: auto;
+            margin: 12px 0 16px 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        /* Tree structure directory */
+        .tree-box {
+            background: #fafafa;
+            border: 1px dashed #666;
+            padding: 15px 20px;
+            font-family: Consolas, monospace;
+            font-size: 11.5pt;
+            line-height: 1.5;
+            margin: 15px 0;
+        }
+
+        /* Table of Contents */
+        .toc {
+            border: 1px solid #000;
+            padding: 20px 30px;
+            background: #fafafa;
+            margin-bottom: 35px;
+        }
+        .toc h3 {
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 15pt;
+            margin-bottom: 15px;
+        }
+        .toc-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13pt;
+        }
+        .toc-item.bold {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Print Settings */
+        @media print {
+            body {
+                background: #ffffff;
+                padding: 0;
+            }
+            .action-bar {
+                display: none;
+            }
+            .page {
+                box-shadow: none;
+                margin: 0;
+                padding: 30px 40px;
+                max-width: 100%;
+                border-radius: 0;
+                page-break-after: always;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP ACTION BAR -->
+    <div class="action-bar">
+        <div class="action-title">Hồ Sơ Báo Cáo Assignment Môn Lập Trình Cơ Sở Với JavaScript &bull; TECHZONE</div>
+        <div class="action-btns">
+            <button class="btn btn-primary" onclick="window.print()">🖨️ In ra PDF / Khổ A4</button>
+            <a href="use_case_diagram.html" class="btn" target="_blank">📊 Xem Sơ Đồ Use Case</a>
+            <a href="Dac_Ta_Use_Case.html" class="btn" target="_blank">📋 Xem Đặc Tả Use Case</a>
+            <a href="index.html" class="btn">🏠 Về Trang Chủ</a>
+        </div>
+    </div>
+
+    <!-- ================= TRANG BÌA ================= -->
+    <div class="page">
+        <div class="cover-page">
+            <div class="cover-top">
+                <h3>TRƯỜNG CAO ĐẲNG FPT POLYTECHNIC</h3>
+                <h4>BỘ MÔN CÔNG NGHỆ THÔNG TIN - THIẾT KẾ WEB</h4>
+                <img src="images/report/image1.png" alt="Logo FPT PolySchool" class="cover-logo">
+            </div>
+
+            <div class="cover-middle">
+                <h1>BÁO CÁO ASSIGNMENT</h1>
+                <h2>MÔN: LẬP TRÌNH CƠ SỞ VỚI JAVASCRIPT</h2>
+                <div class="subject">Mã môn học: WEB1043 / WEB1404</div>
+                <div class="project-name">
+                    ĐỀ TÀI: XÂY DỰNG WEBSITE BÁN PHỤ KIỆN CÔNG NGHỆ TECHZONE
+                </div>
+
+                <table class="cover-table">
+                    <tr>
+                        <td>Giảng viên hướng dẫn:</td>
+                        <td><strong>[Thầy / Cô Bộ Môn]</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Lớp:</td>
+                        <td><strong>SD21301</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Sinh viên thực hiện:</td>
+                        <td><strong>Phạm Trương Vĩ Khang</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Mã số sinh viên:</td>
+                        <td><strong>TD01674</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Chuyên ngành:</td>
+                        <td><strong>Thiết kế &amp; Lập trình Website</strong></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="cover-bottom">
+                ĐÀ NẴNG, THÁNG 10/2026
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MỤC LỤC & LỜI MỞ ĐẦU ================= -->
+    <div class="page page-break">
+        <div class="toc">
+            <h3>MỤC LỤC BÁO CÁO</h3>
+            <div class="toc-item bold"><span>I. PHÂN TÍCH YÊU CẦU PHẦN MỀM</span><span>Trang 2</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;1.1. Giới thiệu đề tài</span><span>Trang 2</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;1.2. Mô tả bài toán</span><span>Trang 2</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;1.3. Phạm vi và mục tiêu hệ thống</span><span>Trang 2</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;1.4. Các bên liên quan (Stakeholders)</span><span>Trang 3</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;1.5. Yêu cầu phi chức năng (Non-functional Requirements)</span><span>Trang 3</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;1.6. Sơ đồ Ca Sử Dụng Tổng Thể (Use Case Diagram)</span><span>Trang 3</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;1.7. Bảng danh mục ca sử dụng hệ thống</span><span>Trang 4</span></div>
+
+            <div class="toc-item bold"><span>II. THIẾT KẾ KIẾN TRÚC &amp; DỮ LIỆU HỆ THỐNG</span><span>Trang 5</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;2.1. Cấu trúc thư mục mã nguồn dự án</span><span>Trang 5</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;2.2. Thiết kế cấu trúc dữ liệu lưu trữ (LocalStorage Database Schema)</span><span>Trang 5</span></div>
+
+            <div class="toc-item bold"><span>III. KẾT QUẢ ĐÁP ỨNG YÊU CẦU ĐỀ BÀI (Y/C 1 ĐẾN 7)</span><span>Trang 6</span></div>
+
+            <div class="toc-item bold"><span>IV. HIỆN THỰC CHỨC NĂNG, ỨNG DỤNG JS &amp; GIẢI THÍCH CODE</span><span>Trang 7</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;4.1. Trang danh mục &amp; Lọc sản phẩm thời gian thực (Yêu cầu 1)</span><span>Trang 7</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;4.2. Hiệu ứng hiển thị &amp; Tương tác xem chi tiết sản phẩm (Yêu cầu 2)</span><span>Trang 8</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;4.3. Slider / Banner có nút điều khiển (Yêu cầu 3)</span><span>Trang 9</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;4.4. Form &amp; Kiểm tra dữ liệu đăng ký bằng Regex (Yêu cầu 4)</span><span>Trang 10</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;4.5. Giỏ hàng &amp; Lưu trữ LocalStorage (Yêu cầu 5)</span><span>Trang 11</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;4.6. Đồng hồ đếm ngược Flash Sale (Yêu cầu 6)</span><span>Trang 12</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;4.7. Quản lý Admin Dashboard &amp; Đơn hàng (Yêu cầu 7 Tự đề xuất)</span><span>Trang 13</span></div>
+            <div class="toc-item"><span>&nbsp;&nbsp;&nbsp;&nbsp;4.8. Chức năng Đăng nhập &amp; Phân quyền bảo mật Client-side</span><span>Trang 14</span></div>
+
+            <div class="toc-item bold"><span>V. KỊCH BẢN KIỂM THỬ PHẦN MỀM (TEST CASES)</span><span>Trang 15</span></div>
+            <div class="toc-item bold"><span>VI. HƯỚNG DẪN CÀI ĐẶT &amp; VẬN HÀNH DỰ ÁN</span><span>Trang 16</span></div>
+            <div class="toc-item bold"><span>VII. ĐÁNH GIÁ, KẾT LUẬN &amp; HƯỚNG PHÁT TRIỂN</span><span>Trang 16</span></div>
+        </div>
+
+        <h1 class="section-title">LỜI MỞ ĐẦU</h1>
+        <p>JavaScript là một trong những ngôn ngữ lập trình nền tảng và đóng vai trò linh hồn trong lĩnh vực phát triển Web hiện đại. Môn học <strong>Lập trình cơ sở với JavaScript (WEB1043 / WEB1404)</strong> tại FPT Polytechnic đã cung cấp cho sinh viên những kiến thức cốt lõi về cú pháp ngôn ngữ, cấu trúc dữ liệu mảng đối tượng, tương tác thao tác DOM (Document Object Model), xử lý sự kiện người dùng (Event Handling), kiểm tra biểu thức chính quy (Regex) và cơ chế lưu trữ dữ liệu bền vững ở trình duyệt thông qua Web Storage API (LocalStorage).</p>
+        <p>Dự án <strong>Website Bán Phụ Kiện Điện Tử TECHZONE</strong> được thực hiện nhằm tổng hợp, thực hành và hiện thực hóa toàn bộ các kỹ năng lập trình trên vào một bài toán thực tiễn: Xây dựng một trang thương mại điện tử chuyên nghiệp, giao diện mượt mà và xử lý toàn bộ nghiệp vụ bán hàng ở phía Front-end.</p>
+    </div>
+
+    <!-- ================= CHƯƠNG I ================= -->
+    <div class="page page-break">
+        <h1 class="section-title">I. PHÂN TÍCH YÊU CẦU PHẦN MỀM</h1>
+
+        <h2 class="sub-title">1.1. Giới thiệu đề tài</h2>
+        <p>Trong kỷ nguyên số hiện nay, xu hướng mua sắm trực tuyến (E-commerce) ngày càng trở nên phổ biến, đặc biệt là trong lĩnh vực thiết bị số và phụ kiện công nghệ (chuột không dây, bàn phím cơ, tai nghe chống ồn, củ sạc GaN, cáp sạc nhanh, loa Bluetooth,...). Việc xây dựng hệ thống <strong>Website Bán Hàng Điện Tử TECHZONE</strong> nhằm tạo ra một kênh phân phối trực tuyến hiện đại, thân thiện, kết nối trực tiếp cửa hàng với người tiêu dùng. Hệ thống hỗ trợ khách hàng dễ dàng tìm kiếm, tham khảo thông số kỹ thuật và đặt mua nhanh chóng, đồng thời cung cấp công cụ trực quan hỗ trợ quản trị viên quản lý kho hàng và đơn hàng hiệu quả.</p>
+
+        <h2 class="sub-title">1.2. Mô tả bài toán</h2>
+        <p>Hiện nay, việc bán lẻ thiết bị và phụ kiện điện tử còn tồn tại nhiều khó khăn nếu chỉ phụ thuộc vào cửa hàng vật lý hoặc các kênh bán hàng thủ công (tin nhắn mạng xã hội):</p>
+        <p><strong>- Khó khăn cho khách hàng:</strong> Khách hàng khó tra cứu thông số kỹ thuật, so sánh giá cả, tình trạng còn hàng; không lưu giữ được giỏ hàng tiện lợi hoặc lịch sử đơn hàng để theo dõi tiến trình giao hàng.</p>
+        <p><strong>- Khó khăn cho người quản lý:</strong> Dễ xảy ra sai sót khi chốt đơn, khó quản lý số lượng tồn kho theo thời gian thực, thiếu công cụ thống kê doanh thu, đơn hàng tập trung.</p>
+        <p><strong>- Giải pháp:</strong> Xây dựng một website thương mại điện tử chuyên ngành đồ điện tử hoàn chỉnh với giao diện trực quan, logic xử lý mượt mà bằng JavaScript thuần (tìm kiếm, lọc danh mục, giỏ hàng, đặt hàng, quản trị sản phẩm &amp; đơn hàng), giúp tự động hóa quy trình bán hàng và nâng cao trải nghiệm mua sắm của người dùng.</p>
+
+        <h2 class="sub-title">1.3. Phạm vi và mục tiêu hệ thống</h2>
+        <p><strong>Phạm vi hệ thống:</strong></p>
+        <ul style="margin-left: 35px; margin-bottom: 12px;">
+            <li>Áp dụng cho các cửa hàng, doanh nghiệp vừa và nhỏ kinh doanh thiết bị, phụ kiện điện tử.</li>
+            <li>Hệ thống tập trung vào việc giới thiệu sản phẩm, quản lý giỏ hàng, đặt hàng và quản trị bán hàng cơ bản dựa trên nền tảng Web Front-end với LocalStorage.</li>
+            <li>Chưa tích hợp cổng thanh toán trực tiếp từ cổng ngân hàng thực tế (VNPay/MoMo Sandbox) và dịch vụ vận chuyển bên thứ ba qua API bưu chính.</li>
+        </ul>
+        <p><strong>Mục tiêu hệ thống:</strong></p>
+        <ul style="margin-left: 35px; margin-bottom: 12px;">
+            <li>Quản lý tài khoản người dùng và phân quyền (Admin, Khách hàng).</li>
+            <li>Thêm, sửa, xóa và quản lý danh mục, sản phẩm điện tử (CRUD).</li>
+            <li>Tìm kiếm và lọc sản phẩm linh hoạt theo tên, danh mục và mức giá.</li>
+            <li>Hỗ trợ giỏ hàng, cập nhật số lượng realtime và tạo đơn hàng trực tuyến.</li>
+            <li>Quản lý tiến trình trạng thái đơn hàng (chờ xử lý, đang giao, đã giao, đã hủy).</li>
+            <li>Tích hợp banner chuyển động tự động và đồng hồ đếm ngược Flash Sale.</li>
+            <li>Thống kê trực quan số lượng sản phẩm, người dùng và tổng doanh thu.</li>
+        </ul>
+
+        <h2 class="sub-title">1.4. Các bên liên quan (Stakeholders)</h2>
+        <p class="no-indent">Hệ thống phục vụ trực tiếp các nhóm tác nhân chính sau:</p>
+        <table class="doc-table">
+            <thead>
+                <tr>
+                    <th width="8%">STT</th>
+                    <th width="24%">Tác Nhân (Stakeholder)</th>
+                    <th width="20%">Vai Trò</th>
+                    <th>Nhu Cầu &amp; Quyền Hạn Trong Hệ Thống</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td><strong>Khách hàng vãng lai (Guest)</strong></td>
+                    <td>Người xem sản phẩm</td>
+                    <td>Truy cập website, xem banner khuyến mãi, tìm kiếm sản phẩm, xem chi tiết và đăng ký tài khoản thành viên.</td>
+                </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td><strong>Khách hàng thành viên (User)</strong></td>
+                    <td>Người mua sắm trực tuyến</td>
+                    <td>Đăng nhập hệ thống, quản lý giỏ hàng cá nhân, tiến hành đặt hàng, theo dõi lịch sử và trạng thái đơn hàng.</td>
+                </tr>
+                <tr>
+                    <td class="text-center">3</td>
+                    <td><strong>Quản trị viên (Admin)</strong></td>
+                    <td>Quản lý điều hành hệ thống</td>
+                    <td>Đăng nhập tài khoản quản trị, xem Dashboard thống kê doanh thu, quản lý danh sách sản phẩm (CRUD), quản lý và cập nhật trạng thái đơn hàng, quản lý người dùng.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="sub-title">1.5. Yêu cầu phi chức năng (Non-functional Requirements)</h2>
+        <ul style="margin-left: 35px; margin-bottom: 15px;">
+            <li><strong>Hiệu năng (Performance):</strong> Tốc độ tải trang dưới 2 giây; các thao tác lọc sản phẩm, tìm kiếm, cập nhật giỏ hàng phản hồi tức thì (&lt; 100ms) không cần tải lại toàn bộ trang (Zero Reload).</li>
+            <li><strong>Tính tương thích đa thiết bị (Responsive Web Design):</strong> Giao diện tự động co giãn tối ưu chuẩn xác trên Desktop (1920x1080), Laptop (1366x768), Tablet và Mobile (375px - 414px).</li>
+            <li><strong>Tính tương thích trình duyệt (Cross-browser Compatibility):</strong> Chạy ổn định, không phát sinh lỗi script trên tất cả các trình duyệt phổ biến hiện nay (Google Chrome, Microsoft Edge, Mozilla Firefox, Apple Safari).</li>
+            <li><strong>Tính khả dụng &amp; Trải nghiệm người dùng (UI/UX):</strong> Bố cục hiện đại, màu sắc chủ đạo xanh công nghệ (#007bff) kết hợp nền trắng thanh lịch, hiệu ứng hover mượt mà, thông báo Toast Notification rõ ràng khi thao tác giỏ hàng.</li>
+            <li><strong>Tính toàn vẹn dữ liệu (Data Integrity):</strong> Sử dụng JSON serialization trên <code>localStorage</code> để lưu trữ lâu dài dữ liệu sản phẩm, đơn hàng và giỏ hàng ngay cả khi đóng hoặc làm mới trình duyệt.</li>
+        </ul>
+    </div>
+
+    <!-- ================= SƠ ĐỒ USE CASE & ĐẶC TẢ ================= -->
+    <div class="page page-break">
+        <h2 class="sub-title">1.6. Sơ đồ Ca Sử Dụng Tổng Thể (Use Case Diagram)</h2>
+        <p>Sơ đồ Use Case Diagram được thiết kế theo đúng chuẩn học thuật UML quốc tế với phong cách Đen - Trắng (Monochrome), thể hiện ranh giới hệ thống (System Boundary), hai tác nhân chính (Khách hàng ở bên trái và Quản trị viên ở bên phải) cùng 15 ca sử dụng cốt lõi. Trong đó, nút <strong>Đăng nhập hệ thống</strong> được bố trí ngay tại <strong>TRUNG TÂM</strong> làm cầu nối xác thực chung cho cả hai tác nhân và nhận các liên kết phụ thuộc <code>&lt;&lt;include&gt;&gt;</code> từ các nghiệp vụ chuyên sâu.</p>
+
+        <div class="figure-box">
+            <img src="images/use_case_diagram.svg" alt="Sơ đồ Use Case Diagram TECHZONE" style="width: 100%; border: 1.5px solid #000;">
+            <p class="caption">Hình 1.1: Sơ đồ Use Case Diagram chuẩn UML đen trắng của hệ thống TECHZONE (Nút Đăng nhập ở trung tâm)</p>
+        </div>
+
+        <h2 class="sub-title">1.7. Bảng danh mục ca sử dụng hệ thống</h2>
+        <table class="doc-table">
+            <thead>
+                <tr>
+                    <th width="10%">Mã UC</th>
+                    <th width="28%">Tên Ca Sử Dụng</th>
+                    <th width="22%">Tác Nhân Chính</th>
+                    <th width="15%">Quan Hệ</th>
+                    <th>Mô Tả Nghiệp Vụ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center"><strong>UC01</strong></td>
+                    <td>Xem Banner &amp; Slider</td>
+                    <td>Khách hàng</td>
+                    <td class="text-center">-</td>
+                    <td>Trình chiếu tự động banner 5s và hỗ trợ nút bấm Next/Prev.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>UC02</strong></td>
+                    <td>Tìm kiếm &amp; Lọc sản phẩm</td>
+                    <td>Khách hàng</td>
+                    <td class="text-center">-</td>
+                    <td>Tìm kiếm trực tiếp theo tên, lọc danh mục sản phẩm điện tử.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>UC03</strong></td>
+                    <td>Xem chi tiết sản phẩm</td>
+                    <td>Khách hàng</td>
+                    <td class="text-center">-</td>
+                    <td>Xem ảnh phóng to, thông số kỹ thuật, đánh giá sao và chọn số lượng.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>UC04</strong></td>
+                    <td>Đăng ký tài khoản</td>
+                    <td>Khách hàng</td>
+                    <td class="text-center">-</td>
+                    <td>Nhập thông tin, kiểm tra Regex và lưu vào LocalStorage.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>UC05</strong></td>
+                    <td><strong>Đăng nhập hệ thống</strong></td>
+                    <td><strong>Khách hàng &amp; Admin</strong></td>
+                    <td class="text-center"><strong>TRUNG TÂM</strong></td>
+                    <td><strong>Xác thực tài khoản, phân quyền User ra Trang chủ, Admin vào Dashboard.</strong></td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>UC06</strong></td>
+                    <td>Quản lý giỏ hàng</td>
+                    <td>Khách hàng</td>
+                    <td class="text-center">-</td>
+                    <td>Thêm món, tăng/giảm số lượng, xóa từng món, tự tính tổng tiền.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>UC07</strong></td>
+                    <td>Đặt hàng &amp; Thanh toán</td>
+                    <td>Khách hàng</td>
+                    <td class="text-center">&lt;&lt;include&gt;&gt; UC05, UC06</td>
+                    <td>Nhập địa chỉ giao hàng, chọn COD/Chuyển khoản, hoàn tất tạo đơn.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>UC08</strong></td>
+                    <td>Xem lịch sử đơn hàng</td>
+                    <td>Khách hàng</td>
+                    <td class="text-center">&lt;&lt;include&gt;&gt; UC05</td>
+                    <td>Theo dõi các đơn đã mua và tiến trình trạng thái xử lý đơn.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>UC10</strong></td>
+                    <td>Thống kê Dashboard</td>
+                    <td>Quản trị viên</td>
+                    <td class="text-center">&lt;&lt;include&gt;&gt; UC05</td>
+                    <td>Xem tổng doanh thu, số đơn hàng, tổng sản phẩm và khách hàng.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>UC11</strong></td>
+                    <td>Quản lý sản phẩm (CRUD)</td>
+                    <td>Quản trị viên</td>
+                    <td class="text-center">&lt;&lt;include&gt;&gt; UC05</td>
+                    <td>Thêm sản phẩm mới, cập nhật giá/kho và xóa sản phẩm.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>UC12</strong></td>
+                    <td>Quản lý đơn hàng</td>
+                    <td>Quản trị viên</td>
+                    <td class="text-center">&lt;&lt;include&gt;&gt; UC05</td>
+                    <td>Xem toàn bộ đơn hàng khách đặt và thông tin người mua.</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>UC13</strong></td>
+                    <td>Cập nhật trạng thái đơn</td>
+                    <td>Quản trị viên</td>
+                    <td class="text-center">&lt;&lt;include&gt;&gt; UC12</td>
+                    <td>Chuyển đổi trạng thái đơn (Chờ xử lý, Đang giao, Hoàn thành, Hủy).</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ================= CHƯƠNG II: KIẾN TRÚC & DỮ LIỆU ================= -->
+    <div class="page page-break">
+        <h1 class="section-title">II. THIẾT KẾ KIẾN TRÚC &amp; DỮ LIỆU HỆ THỐNG</h1>
+
+        <h2 class="sub-title">2.1. Cấu trúc thư mục mã nguồn dự án</h2>
+        <p>Mã nguồn dự án được tổ chức khoa học, phân tách rõ ràng giữa các trang giao diện (HTML), kiểu dáng hiển thị (CSS), logic xử lý (JavaScript) và tài nguyên hình ảnh (Images):</p>
+
+        <div class="tree-box">
+wed bán hàng điện tử/
+├── index.html                 # Trang chủ (Banner, Flash Sale, Sản phẩm nổi bật)
+├── products.html              # Trang danh mục & Lọc tìm kiếm sản phẩm
+├── product-detail.html        # Trang xem chi tiết sản phẩm & Chọn mua
+├── cart.html                  # Trang quản lý giỏ hàng & Đặt hàng
+├── login.html                 # Trang đăng nhập hệ thống (User & Admin)
+├── register.html              # Trang đăng ký thành viên mới
+├── admin.html                 # Trang quản trị Dashboard & Quản lý đơn hàng
+├── orders.html                # Trang xem lịch sử đơn hàng của khách
+├── use_case_diagram.html      # Trang hiển thị & Tải sơ đồ Use Case PNG
+├── Dac_Ta_Use_Case.html       # Hồ sơ đặc tả ca sử dụng chi tiết
+├── Bao_Cao_Assignment.html    # Báo cáo tổng hợp dự án Assignment
+├── css/
+│   ├── style.css              # Tệp stylesheet tổng thể cho toàn website
+│   └── admin.css              # Stylesheet chuyên biệt cho giao diện Admin
+├── js/
+│   ├── data.js                # Cơ sở dữ liệu mẫu ban đầu (Mock Data)
+│   ├── main.js                # Khởi tạo dữ liệu, Header, Toast và tiện ích chung
+│   ├── slider.js              # Xử lý Banner tự động & Đồng hồ Flash Sale
+│   ├── products.js            # Xử lý lọc danh mục, Live Search, sắp xếp giá
+│   ├── product-detail.js      # Xử lý hiển thị chi tiết, đổi ảnh Thumbnails
+│   ├── cart.js                # Xử lý giỏ hàng & Lưu trữ LocalStorage
+│   ├── auth.js                # Kiểm tra Form Regex, Đăng ký & Đăng nhập
+│   └── admin.js               # Phân quyền Admin, Thống kê & Quản lý đơn
+└── images/                    # Thư mục hình ảnh banner và sản phẩm
+        </div>
+
+        <h2 class="sub-title">2.2. Thiết kế cấu trúc dữ liệu lưu trữ (LocalStorage Database Schema)</h2>
+        <p>Hệ thống sử dụng cơ chế Web Storage API (LocalStorage) để đóng vai trò như một cơ sở dữ liệu NoSQL dạng Key-Value phía máy khách (Client-side Database). Các bảng dữ liệu chính gồm:</p>
+
+        <table class="doc-table">
+            <thead>
+                <tr>
+                    <th width="20%">Key LocalStorage</th>
+                    <th width="20%">Kiểu Dữ Liệu</th>
+                    <th>Cấu Trúc Các Trường (Schema Attributes)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>techzone_products</code></td>
+                    <td>Array of Objects</td>
+                    <td><code>id, name, category, price, oldPrice, image, isHot, isNew, isSale, rating, stock, desc</code></td>
+                </tr>
+                <tr>
+                    <td><code>techzone_users</code></td>
+                    <td>Array of Objects</td>
+                    <td><code>name, email, phone, password, role ('user' | 'admin')</code></td>
+                </tr>
+                <tr>
+                    <td><code>techzone_cart</code></td>
+                    <td>Array of Objects</td>
+                    <td><code>id, name, price, image, quantity</code></td>
+                </tr>
+                <tr>
+                    <td><code>techzone_orders</code></td>
+                    <td>Array of Objects</td>
+                    <td><code>id, customerName, phone, address, note, paymentMethod, items, total, date, status ('pending' | 'shipping' | 'done' | 'cancelled')</code></td>
+                </tr>
+                <tr>
+                    <td><code>currentUser</code> / <code>techzone_current_user</code></td>
+                    <td>Object (hoặc null)</td>
+                    <td><code>name, email, phone, role ('user' | 'admin')</code> (Phiên đăng nhập hiện tại)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ================= CHƯƠNG III: ĐỐI CHIẾU YÊU CẦU ================= -->
+    <div class="page page-break">
+        <h1 class="section-title">III. KẾT QUẢ ĐÁP ỨNG YÊU CẦU ĐỀ BÀI (Y/C 1 ĐẾN 7)</h1>
+        <p>Dưới đây là bảng đối chiếu tổng hợp mức độ hoàn thành các yêu cầu bắt buộc và tự đề xuất trong đề cương Assignment học phần JavaScript:</p>
+
+        <table class="doc-table">
+            <thead>
+                <tr>
+                    <th width="8%">STT</th>
+                    <th width="28%">Yêu Cầu Trong Assignment</th>
+                    <th width="42%">Kết Quả Hiện Thực Bằng JavaScript</th>
+                    <th width="12%">File Xử Lý</th>
+                    <th width="10%">Đánh Giá</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td><strong>Y/C 1: Trang danh mục sản phẩm</strong></td>
+                    <td>Sử dụng mảng đối tượng JS, áp dụng các hàm <code>filter()</code>, <code>map()</code> để phân loại danh mục, tìm kiếm theo tên và sắp xếp theo giá linh hoạt.</td>
+                    <td><code>data.js</code>, <code>products.js</code></td>
+                    <td class="text-center"><strong>100%</strong><br>Đạt</td>
+                </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td><strong>Y/C 2: Hiệu ứng sản phẩm</strong></td>
+                    <td>Kết hợp CSS Transform và sự kiện chuột hover để zoom ảnh sản phẩm 3D, hiển thị nút Quick Action và chuyển đổi ảnh thumbnails mượt mà.</td>
+                    <td><code>style.css</code>, <code>product-detail.js</code></td>
+                    <td class="text-center"><strong>100%</strong><br>Đạt</td>
+                </tr>
+                <tr>
+                    <td class="text-center">3</td>
+                    <td><strong>Y/C 3: Slider / Banner có nút điều khiển</strong></td>
+                    <td>Viết hàm <code>setInterval</code> tự động chuyển banner mỗi 5s, xử lý vòng lặp vô tận chỉ số slide bằng toán tử modulo <code>%</code>, hỗ trợ nút Prev/Next và Pause khi hover.</td>
+                    <td><code>slider.js</code></td>
+                    <td class="text-center"><strong>100%</strong><br>Đạt</td>
+                </tr>
+                <tr>
+                    <td class="text-center">4</td>
+                    <td><strong>Y/C 4: Form &amp; Kiểm tra dữ liệu đăng ký</strong></td>
+                    <td>Sử dụng biểu thức chính quy (Regex) kiểm tra tính hợp lệ của Email, Số điện thoại Việt Nam, độ dài mật khẩu và kiểm tra mật khẩu trùng khớp; chống trùng tài khoản.</td>
+                    <td><code>auth.js</code></td>
+                    <td class="text-center"><strong>100%</strong><br>Đạt</td>
+                </tr>
+                <tr>
+                    <td class="text-center">5</td>
+                    <td><strong>Y/C 5: Giỏ hàng &amp; Local Storage</strong></td>
+                    <td>Toàn bộ dữ liệu giỏ hàng được lưu trữ bền vững trên <code>localStorage</code>; hỗ trợ thêm món, tăng/giảm số lượng, xóa món và tính tổng tiền realtime bằng hàm <code>reduce()</code>.</td>
+                    <td><code>cart.js</code></td>
+                    <td class="text-center"><strong>100%</strong><br>Đạt</td>
+                </tr>
+                <tr>
+                    <td class="text-center">6</td>
+                    <td><strong>Y/C 6: Chức năng nâng cao (Đồng hồ đếm ngược)</strong></td>
+                    <td>Sử dụng <code>setInterval</code> tính toán thời gian chênh lệch mili-giây, quy đổi ra Ngày, Giờ, Phút, Giây bằng toán tử <code>%</code> và <code>Math.floor()</code>, tự động kết thúc sale.</td>
+                    <td><code>slider.js</code></td>
+                    <td class="text-center"><strong>100%</strong><br>Đạt</td>
+                </tr>
+                <tr>
+                    <td class="text-center">7</td>
+                    <td><strong>Y/C 7: Yêu cầu tự đề xuất (Admin &amp; Đặt hàng)</strong></td>
+                    <td>Xây dựng hệ thống Đặt hàng tạo mã đơn tự động, phân quyền bảo mật Admin/User, Dashboard thống kê doanh thu realtime và Quản lý cập nhật trạng thái đơn hàng.</td>
+                    <td><code>admin.js</code>, <code>auth.js</code></td>
+                    <td class="text-center"><strong>100%</strong><br>Xuất sắc</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ================= CHƯƠNG IV: HIỆN THỰC & GIẢI THÍCH CODE ================= -->
+    <div class="page page-break">
+        <h1 class="section-title">IV. HIỆN THỰC CHỨC NĂNG, ỨNG DỤNG JS &amp; GIẢI THÍCH CODE</h1>
+
+        <h2 class="sub-title">4.1. Trang danh mục &amp; Lọc sản phẩm thời gian thực (Yêu cầu 1)</h2>
+        <p><strong>Mô tả chức năng:</strong> Trang danh mục cho phép người dùng lọc sản phẩm theo từng nhóm (Chuột &amp; Bàn phím, Cáp sạc, Âm thanh, Balo), lọc nhanh theo hàng Sale/Mới và sắp xếp theo mức giá tăng hoặc giảm dần mà không cần tải lại trang.</p>
+
+        <p><strong>Đoạn code xử lý cốt lõi (js/products.js):</strong></p>
+        <pre class="code-box">
+const applyFilters = () => {
+    let filtered = [...products];
+
+    // 1. Lọc theo từ khóa tìm kiếm (Live Search)
+    if (initialSearch) {
+        filtered = filtered.filter(p => p.name.toLowerCase().includes(initialSearch.toLowerCase()));
+    }
+
+    // 2. Lọc theo danh mục sản phẩm (Category Radio)
+    const selectedCat = document.querySelector('input[name="cat"]:checked').value;
+    if (selectedCat !== 'all') {
+        filtered = filtered.filter(p => p.category === selectedCat);
+    }
+
+    // 3. Lọc theo trạng thái khuyến mãi / hàng mới
+    if (filterSale.checked) filtered = filtered.filter(p => p.isSale);
+    if (filterNew.checked) filtered = filtered.filter(p => p.isNew);
+
+    // 4. Sắp xếp theo giá (Sort Price)
+    const sortVal = sortSelect.value;
+    if (sortVal === 'asc') filtered.sort((a, b) => a.price - b.price);
+    else if (sortVal === 'desc') filtered.sort((a, b) => b.price - a.price);
+
+    currentProducts = filtered;
+    renderProducts(); // Xuất ra DOM
+};
+        </pre>
+        <p><strong>Giải thích giải thuật:</strong> Sử dụng cú pháp Spread Operator <code>[...products]</code> để nhân bản mảng gốc, sau đó lần lượt áp dụng phương thức bậc cao <code>filter()</code> kết hợp <code>sort()</code>. Hàm <code>renderProducts()</code> sử dụng phương thức <code>map()</code> để sinh mã HTML cho từng thẻ sản phẩm và gán vào <code>innerHTML</code> của lưới sản phẩm.</p>
+
+        <h2 class="sub-title">4.2. Hiệu ứng hiển thị &amp; Tương tác xem chi tiết sản phẩm (Yêu cầu 2)</h2>
+        <p><strong>Mô tả chức năng:</strong> Thẻ sản phẩm có hiệu ứng nổi khối khi rê chuột (Hover 3D Elevation), hình ảnh phóng to mượt mà (Scale effect). Tại trang chi tiết, người dùng có thể nhấp vào các ảnh Thumbnail để chuyển ảnh đại diện lớn và bấm nút tăng giảm số lượng mua.</p>
+
+        <p><strong>Đoạn code CSS &amp; JS xử lý hiệu ứng:</strong></p>
+        <pre class="code-box">
+/* CSS Zoom &amp; Floating Card (css/style.css) */
+.product-card {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,123,255,0.12);
+    border-color: #007bff;
+}
+.product-card:hover .product-img {
+    transform: scale(1.08); /* Zoom nhẹ ảnh khi hover */
+}
+
+// JS Đổi ảnh xem chi tiết (js/product-detail.js)
+window.changeMainImage = (src, thumbEl) => {
+    document.getElementById('mainProductImg').src = src;
+    document.querySelectorAll('.thumb-item').forEach(el => el.classList.remove('active'));
+    thumbEl.classList.add('active');
+};
+        </pre>
+        <p><strong>Giải thích giải thuật:</strong> CSS sử dụng <code>transform: translateY(-6px)</code> và <code>box-shadow</code> màu xanh nhạt tạo cảm giác thẻ sản phẩm bay lên khi người dùng tương tác. Hàm JS <code>changeMainImage</code> gán trực tiếp thuộc tính <code>.src</code> của ảnh lớn theo ảnh con được nhấp và đồng bộ class <code>active</code>.</p>
+    </div>
+
+    <!-- ================= TIẾP TỤC CHƯƠNG IV ================= -->
+    <div class="page page-break">
+        <h2 class="sub-title">4.3. Slider / Banner có nút điều khiển (Yêu cầu 3)</h2>
+        <div class="figure-box">
+            <img src="images/report/image2.png" alt="Ảnh chụp Slider Banner TECHZONE">
+            <p class="caption">Hình 4.1: Giao diện Banner tự động chuyển động với nút điều khiển và chấm tròn chỉ số</p>
+        </div>
+
+        <p><strong>Đoạn code xử lý (js/slider.js):</strong></p>
+        <pre class="code-box">
+// Danh sách các slide banner
+const slides = [
+    {
+        tag: '⌨️ KHÔNG GIAN LÀM VIỆC ĐỈNH CAO',
+        title: 'Bàn phím chuột\n&lt;span class="accent"&gt;công nghệ đỉnh cao&lt;/span&gt;',
+        desc: 'Bàn phím cơ Keychron, chuột công thái học Logitech MX Master 3S chính hãng.',
+        btnLink: 'products.html?category=mouse_keyboard',
+        btnText: 'Khám phá ngay'
+    },
+    {
+        tag: '🎧 TRẢI NGHIỆM ÂM THANH SỐNG ĐỘNG',
+        title: 'Âm thanh đỉnh cao\n&lt;span class="accent"&gt;chuẩn Hi-Res Audio&lt;/span&gt;',
+        desc: 'Tai nghe Sony WH-1000XM5, loa Marshall Emberton II, Apple AirPods Pro 2.',
+        btnLink: 'products.html?category=audio',
+        btnText: 'Mua ngay'
+    },
+    {
+        tag: '⚡ FLASH SALE HÔM NAY',
+        title: 'Ưu đãi cực sốc\n&lt;span class="accent"&gt;giảm đến 50%&lt;/span&gt;',
+        desc: 'Hàng trăm củ sạc GaN Anker 65W, cáp sạc nhanh Baseus 100W giảm giá cực sốc.',
+        btnLink: 'products.html?sale=true',
+        btnText: 'Săn Deal ngay'
+    }
+];
+
+let currentSlide = 0;
+const slideEls = document.querySelectorAll('.hero-slide');
+const heroControls = document.getElementById('heroControls');
+
+// Hàm chuyển đến slide cụ thể
+function goTo(idx) {
+    slideEls[currentSlide].classList.remove('active');
+    const dots = heroControls.querySelectorAll('.hero-dot');
+    if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+    
+    // Vòng lặp chỉ số slide
+    currentSlide = (idx + slides.length) % slides.length;
+    slideEls[currentSlide].classList.add('active');
+    if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+    renderContent(currentSlide);
+}
+
+// Nút bấm Trước / Kế tiếp
+document.getElementById('prevBtn').onclick = () => goTo(currentSlide - 1);
+document.getElementById('nextBtn').onclick = () => goTo(currentSlide + 1);
+
+// Tự động chạy mỗi 5 giây &amp; tạm dừng khi rê chuột vào
+let slideTimer = setInterval(() => goTo(currentSlide + 1), 5000);
+const heroSection = document.getElementById('heroSection');
+heroSection.addEventListener('mouseenter', () => clearInterval(slideTimer));
+heroSection.addEventListener('mouseleave', () => {
+    slideTimer = setInterval(() => goTo(currentSlide + 1), 5000);
+});
+        </pre>
+        <p><strong>Giải thích giải thuật:</strong> Sử dụng công thức toán học <code>(idx + slides.length) % slides.length</code> để đảm bảo chỉ số slide luôn nằm trong khoảng hợp lệ từ <code>0</code> đến <code>n-1</code>, tạo thành vòng lặp vô tận khi bấm Next hoặc Prev. Sử dụng <code>setInterval</code> để tự động chuyển slide sau mỗi 5.000 mili-giây (5 giây) và lắng nghe sự kiện <code>mouseenter</code> / <code>mouseleave</code> để tạm dừng khi người dùng đang đọc nội dung.</p>
+    </div>
+
+    <!-- ================= TIẾP TỤC CHƯƠNG IV ================= -->
+    <div class="page page-break">
+        <h2 class="sub-title">4.4. Form &amp; Kiểm tra dữ liệu đăng ký bằng Regex (Yêu cầu 4)</h2>
+        <div class="figure-box">
+            <img src="images/report/image3.png" alt="Ảnh chụp Form Đăng ký tài khoản">
+            <p class="caption">Hình 4.2: Giao diện Form đăng ký tài khoản thành viên với cơ chế kiểm tra lỗi tự động</p>
+        </div>
+
+        <p><strong>Đoạn code xử lý (js/auth.js):</strong></p>
+        <pre class="code-box">
+const registerForm = document.getElementById('registerForm');
+if (registerForm) {
+    registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let isValid = true;
+
+        const name = document.getElementById('regName').value.trim();
+        const email = document.getElementById('regEmail').value.trim();
+        const phone = document.getElementById('regPhone').value.trim();
+        const password = document.getElementById('regPassword').value;
+        const passwordConfirm = document.getElementById('regPasswordConfirm').value;
+
+        // 1. Kiểm tra rỗng họ tên
+        if (name === '') {
+            showError('errRegName', 'regName');
+            isValid = false;
+        }
+
+        // 2. Kiểm tra định dạng Email bằng Regular Expression
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showError('errRegEmail', 'regEmail');
+            isValid = false;
+        }
+
+        // 3. Kiểm tra số điện thoại Việt Nam (10 số, đầu 03, 05, 07, 08, 09)
+        const phoneRegex = /^(0|\+84)[35789][0-9]{8}$/;
+        if (!phoneRegex.test(phone)) {
+            showError('errRegPhone', 'regPhone');
+            isValid = false;
+        }
+
+        // 4. Kiểm tra độ dài mật khẩu tối thiểu 6 ký tự
+        if (password.length &lt; 6) {
+            showError('errRegPassword', 'regPassword');
+            isValid = false;
+        }
+
+        // 5. Kiểm tra mật khẩu nhập lại trùng khớp
+        if (password !== passwordConfirm || passwordConfirm === '') {
+            showError('errRegPasswordConfirm', 'regPasswordConfirm');
+            isValid = false;
+        }
+
+        // 6. Kiểm tra trùng lặp tài khoản trong localStorage
+        if (isValid) {
+            const users = JSON.parse(localStorage.getItem('techzone_users')) || [];
+            if (users.find(u => u.email === email || u.phone === phone)) {
+                alert('Email hoặc Số điện thoại này đã được đăng ký!');
+                return;
+            }
+
+            // Lưu người dùng mới vào LocalStorage
+            users.push({ name, email, phone, password, role: 'user' });
+            localStorage.setItem('techzone_users', JSON.stringify(users));
+            document.getElementById('regSuccessModal').classList.add('show');
+        }
+    });
+}
+        </pre>
+        <p><strong>Giải thích giải thuật:</strong> Sử dụng Regular Expression (Biểu thức chính quy) để kiểm tra tính hợp lệ của dữ liệu trước khi gửi lên hệ thống. Sử dụng <code>emailRegex.test(email)</code> để đảm bảo email có ký tự <code>@</code> và tên miền hợp lệ. Sử dụng <code>phoneRegex.test(phone)</code> để kiểm tra chính xác đầu số nhà mạng viễn thông Việt Nam. Dùng <code>users.find()</code> để quét danh sách đã có trên LocalStorage nhằm ngăn chặn đăng ký trùng lặp.</p>
+    </div>
+
+    <!-- ================= TIẾP TỤC CHƯƠNG IV ================= -->
+    <div class="page page-break">
+        <h2 class="sub-title">4.5. Giỏ hàng &amp; Lưu trữ LocalStorage (Yêu cầu 5)</h2>
+        <div class="figure-box">
+            <img src="images/report/image4.png" alt="Ảnh chụp Trang Giỏ Hàng TECHZONE">
+            <p class="caption">Hình 4.3: Giao diện Giỏ hàng hiển thị danh sách sản phẩm, bảng tóm tắt và tổng thanh toán</p>
+        </div>
+
+        <p><strong>Đoạn code xử lý (js/cart.js):</strong></p>
+        <pre class="code-box">
+// 1. Lấy dữ liệu giỏ hàng từ LocalStorage
+const getCart = () => {
+    const cart = localStorage.getItem('techzone_cart');
+    return cart ? JSON.parse(cart) : [];
+};
+
+// 2. Lưu giỏ hàng vào LocalStorage và cập nhật giao diện
+const saveCart = (cart) => {
+    localStorage.setItem('techzone_cart', JSON.stringify(cart));
+    updateCartCount();
+    if (typeof renderCart === 'function') renderCart();
+};
+
+// 3. Hàm Thêm sản phẩm vào giỏ
+window.addToCart = (productId, quantity = 1) => {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    let cart = getCart();
+    // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+    const existingIndex = cart.findIndex(item => item.id === productId);
+    if (existingIndex > -1) {
+        cart[existingIndex].quantity += quantity; // Tăng số lượng nếu đã có
+    } else {
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            quantity: quantity
+        });
+    }
+    saveCart(cart);
+    showToast(product); // Hiển thị popup thông báo
+};
+
+// 4. Cập nhật số lượng hiển thị trên Badge icon giỏ hàng Header
+const updateCartCount = () => {
+    const cart = getCart();
+    const count = cart.reduce((total, item) => total + item.quantity, 0);
+    const badge = document.getElementById('cartCount');
+    if (badge) badge.innerText = count;
+};
+        </pre>
+        <p><strong>Giải thích giải thuật:</strong> Mảng giỏ hàng được tuần tự hóa bằng <code>JSON.stringify</code> và giải mã bằng <code>JSON.parse</code>. Phương thức <code>findIndex()</code> kiểm tra nhanh nếu sản phẩm đã tồn tại thì chỉ tăng thuộc tính <code>quantity</code> thay vì thêm dòng mới. Hàm <code>reduce()</code> cộng dồn toàn bộ số lượng để hiển thị lên icon giỏ hàng ở thanh điều hướng trên cùng.</p>
+    </div>
+
+    <!-- ================= TIẾP TỤC CHƯƠNG IV ================= -->
+    <div class="page page-break">
+        <h2 class="sub-title">4.6. Đồng hồ đếm ngược Flash Sale (Yêu cầu 6)</h2>
+        <div class="figure-box">
+            <img src="images/report/image5.png" alt="Ảnh chụp Đồng hồ đếm ngược Flash Sale">
+            <p class="caption">Hình 4.4: Khu vực Flash Sale với đồng hồ đếm ngược thời gian thực (Ngày : Giờ : Phút : Giây)</p>
+        </div>
+
+        <p><strong>Đoạn code xử lý (js/slider.js):</strong></p>
+        <pre class="code-box">
+// Thiết lập mốc thời gian kết thúc: 12 giờ 45 phút kể từ lúc mở trang
+const endTime = new Date().getTime() + (12 * 60 * 60 * 1000 + 45 * 60 * 1000);
+
+const timer = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = endTime - now; // Khoảng thời gian chênh lệch (mili giây)
+
+    if (distance &lt; 0) {
+        clearInterval(timer);
+        document.getElementById('countdown').innerHTML = "&lt;h3&gt;ĐỢT SALE ĐÃ KẾT THÚC&lt;/h3&gt;";
+        return;
+    }
+
+    // Quy đổi từ mili giây sang Ngày, Giờ, Phút, Giây bằng toán tử chia dư (%)
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Cập nhật lên DOM (dùng padStart để luôn có 2 chữ số: 05, 09,...)
+    document.getElementById('days').innerText = days.toString().padStart(2, '0');
+    document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+    document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+    document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+}, 1000);
+        </pre>
+        <p><strong>Giải thích giải thuật:</strong> Lấy mốc thời gian hiện tại <code>now</code> so với thời điểm kết thúc <code>endTime</code> bằng <code>getTime()</code> (tính bằng mili-giây). Sử dụng toán tử chia lấy dư <code>%</code> kết hợp <code>Math.floor()</code> để phân tách chính xác số Giờ, Phút, Giây. Phương thức <code>padStart(2, '0')</code> giúp số đơn lẻ (ví dụ: 7 giây) luôn được hiển thị thành 2 chữ số chuẩn điện tử: "07". Khi thời gian về 0, hàm <code>clearInterval</code> sẽ hủy vòng lặp và xuất thông báo kết thúc sale.</p>
+    </div>
+
+    <!-- ================= TIẾP TỤC CHƯƠNG IV ================= -->
+    <div class="page page-break">
+        <h2 class="sub-title">4.7. Quản lý Admin Dashboard &amp; Đơn hàng (Yêu cầu 7 Tự đề xuất)</h2>
+        <div class="figure-box">
+            <img src="images/report/image6.png" alt="Ảnh chụp Trang Admin Dashboard TECHZONE">
+            <p class="caption">Hình 4.5: Giao diện quản trị Admin với bảng thống kê doanh thu và quản lý trạng thái đơn hàng</p>
+        </div>
+
+        <p><strong>Đoạn code xử lý (js/admin.js):</strong></p>
+        <pre class="code-box">
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Kiểm tra quyền truy cập (Chỉ Admin mới được vào)
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser || currentUser.role !== 'admin') {
+        alert("Bạn không có quyền truy cập trang quản trị!");
+        window.location.href = "index.html";
+        return;
+    }
+
+    // 2. Tính toán thống kê doanh thu và đơn hàng
+    const loadDashboardStats = () => {
+        const orders = JSON.parse(localStorage.getItem('techzone_orders')) || [];
+        const users = JSON.parse(localStorage.getItem('techzone_users')) || [];
+        
+        let revenue = 0;
+        let pending = 0;
+
+        orders.forEach(order => {
+            if (order.status === 'done') revenue += order.total;
+            if (!order.status || order.status === 'pending') pending++;
+        });
+
+        document.getElementById('countOrders').innerText = orders.length;
+        document.getElementById('countRevenue').innerText = formatPrice(revenue);
+        document.getElementById('countPending').innerText = pending;
+        document.getElementById('countUsers').innerText = users.filter(u => u.role !== 'admin').length;
+    };
+
+    // 3. Cập nhật trạng thái đơn hàng (Chờ xử lý -> Hoàn thành / Hủy)
+    window.updateOrderStatus = (orderId, newStatus) => {
+        let orders = JSON.parse(localStorage.getItem('techzone_orders')) || [];
+        const index = orders.findIndex(o => o.id === orderId);
+        if (index !== -1) {
+            orders[index].status = newStatus;
+            localStorage.setItem('techzone_orders', JSON.stringify(orders));
+            loadDashboardStats(); // Tải lại số liệu thống kê realtime
+        }
+    };
+
+    // 4. Xóa tài khoản khách hàng
+    window.deleteUser = (email) => {
+        if (confirm("Bạn có chắc chắn muốn xóa khách hàng này?")) {
+            let users = JSON.parse(localStorage.getItem('techzone_users')) || [];
+            users = users.filter(u => u.email !== email);
+            localStorage.setItem('techzone_users', JSON.stringify(users));
+            loadAdminUsers();
+        }
+    };
+
+    loadDashboardStats();
+});
+        </pre>
+        <p><strong>Giải thích giải thuật:</strong></p>
+        <ul style="margin-left: 35px; margin-bottom: 15px;">
+            <li><strong>Bảo mật phân quyền:</strong> Kiểm tra <code>currentUser.role === 'admin'</code> ngay khi DOM sẵn sàng. Nếu người dùng thường hoặc khách cố tình truy cập vào URL <code>admin.html</code>, hệ thống lập tức hiển thị cảnh báo và chuyển hướng ngược về <code>index.html</code>.</li>
+            <li><strong>Thống kê thời gian thực:</strong> Duyệt mảng đơn hàng, cộng dồn tổng tiền các đơn có trạng thái "done" để tính doanh thu thực tế, đếm số lượng đơn đang chờ xử lý và số lượng thành viên đã đăng ký.</li>
+            <li><strong>Quản lý nghiệp vụ (CRUD):</strong> Admin có thể cập nhật trạng thái đơn hàng qua thẻ <code>&lt;select&gt;</code>, khách hàng khi vào trang theo dõi đơn (<code>orders.html</code>) sẽ thấy ngay tiến trình mới nhất được cập nhật.</li>
+        </ul>
+    </div>
+
+    <!-- ================= CHƯƠNG V & VI & VII ================= -->
+    <div class="page page-break">
+        <h1 class="section-title">V. KỊCH BẢN KIỂM THỬ PHẦN MỀM (TEST CASES)</h1>
+        <p>Để đảm bảo chất lượng phần mềm trước khi bàn giao và báo cáo, hệ thống đã được kiểm thử chức năng (Functional Testing) qua 5 kịch bản chính:</p>
+
+        <table class="doc-table">
+            <thead>
+                <tr>
+                    <th width="8%">Mã TC</th>
+                    <th width="20%">Chức Năng Kiểm Thử</th>
+                    <th width="28%">Dữ Liệu Đầu Vào (Input)</th>
+                    <th width="32%">Kết Quả Kỳ Vọng (Expected Output)</th>
+                    <th width="12%">Kết Quả</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center"><strong>TC01</strong></td>
+                    <td>Validate Form Đăng ký</td>
+                    <td>Nhập email: <code>abc@</code> (sai cú pháp), SĐT: <code>12345</code> (không đủ 10 số).</td>
+                    <td>Hiển thị dòng chữ đỏ báo lỗi định dạng ngay dưới ô nhập, không cho submit.</td>
+                    <td class="text-center"><strong>PASS</strong></td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>TC02</strong></td>
+                    <td>Đăng nhập &amp; Phân quyền</td>
+                    <td>Email: <code>admin@techzone.vn</code>, Mật khẩu: <code>admin123</code>.</td>
+                    <td>Hệ thống chuyển hướng vào trang <code>admin.html</code>, hiển thị thông số Dashboard.</td>
+                    <td class="text-center"><strong>PASS</strong></td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>TC03</strong></td>
+                    <td>Giỏ hàng &amp; LocalStorage</td>
+                    <td>Bấm "Thêm vào giỏ" sản phẩm Tai nghe Sony 2 lần, F5 lại trình duyệt.</td>
+                    <td>Badge giỏ hàng hiển thị số 2, vào giỏ hàng số lượng hiển thị là 2, giá nhân đôi chính xác.</td>
+                    <td class="text-center"><strong>PASS</strong></td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>TC04</strong></td>
+                    <td>Đặt hàng &amp; Thanh toán</td>
+                    <td>Bấm "Đặt hàng", điền họ tên, địa chỉ, chọn COD và xác nhận.</td>
+                    <td>Tạo mã đơn thành công, giỏ hàng tự động làm sạch (0 món), đơn lưu vào <code>techzone_orders</code>.</td>
+                    <td class="text-center"><strong>PASS</strong></td>
+                </tr>
+                <tr>
+                    <td class="text-center"><strong>TC05</strong></td>
+                    <td>Đổi trạng thái đơn Admin</td>
+                    <td>Tại Admin Dashboard, đổi trạng thái đơn từ "Chờ xử lý" sang "Hoàn thành".</td>
+                    <td>Doanh thu tăng tương ứng theo tổng tiền đơn, trạng thái hiển thị màu xanh hoàn thành.</td>
+                    <td class="text-center"><strong>PASS</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h1 class="section-title">VI. HƯỚNG DẪN CÀI ĐẶT &amp; VẬN HÀNH DỰ ÁN</h1>
+        <ol style="margin-left: 35px; margin-bottom: 20px;">
+            <li><strong>Yêu cầu phần mềm:</strong> Máy tính cài đặt trình duyệt hiện đại (Google Chrome, Microsoft Edge) và trình soạn thảo mã nguồn (Visual Studio Code).</li>
+            <li><strong>Cách khởi chạy website:</strong>
+                <ul>
+                    <li>Mở thư mục <code>wed bán hàng điện tử</code> bằng VS Code.</li>
+                    <li>Nhấp chuột phải vào tệp <code>index.html</code> và chọn <strong>"Open with Live Server"</strong> (hoặc mở trực tiếp file <code>index.html</code> bằng trình duyệt).</li>
+                </ul>
+            </li>
+            <li><strong>Tài khoản thử nghiệm mặc định:</strong>
+                <ul>
+                    <li><strong>Tài khoản Quản trị (Admin):</strong> Email: <code>admin@techzone.vn</code> | Mật khẩu: <code>admin123</code></li>
+                    <li><strong>Tài khoản Khách hàng (User):</strong> Có thể tự đăng ký tài khoản mới tại trang <code>register.html</code> hoặc dùng tài khoản có sẵn.</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h1 class="section-title">VII. ĐÁNH GIÁ, KẾT LUẬN &amp; HƯỚNG PHÁT TRIỂN</h1>
+        <h2 class="sub-title">7.1. Đánh giá kết quả đạt được</h2>
+        <p>Dự án đã đáp ứng đầy đủ và vượt mức các yêu cầu của học phần Lập trình cơ sở với JavaScript. Trang web có thiết kế đẹp mắt, chuẩn công nghệ E-commerce, logic code xử lý chặt chẽ, không phụ thuộc thư viện ngoài (Vanilla JS) và toàn bộ dữ liệu người dùng, giỏ hàng, đơn hàng được quản lý nhất quán thông qua LocalStorage.</p>
+
+        <h2 class="sub-title">7.2. Hạn chế của dự án</h2>
+        <p>Do phạm vi của môn học Front-end cơ sở, hệ thống hiện tại lưu trữ dữ liệu trên LocalStorage của máy khách, do đó khi đổi sang trình duyệt khác hoặc xóa bộ nhớ Cache thì dữ liệu mẫu sẽ được khởi tạo lại. Chưa có Server Backend thực sự để lưu trữ cơ sở dữ liệu tập trung (MySQL/MongoDB).</p>
+
+        <h2 class="sub-title">7.3. Hướng phát triển trong tương lai</h2>
+        <p>Trong các học phần chuyên ngành tiếp theo, dự án có thể mở rộng kết nối với Backend RESTful API (NodeJS/Express hoặc PHP/Laravel), tích hợp cơ sở dữ liệu SQL Server/MongoDB, kết nối cổng thanh toán trực tuyến thực tế (VNPay Sandbox) và dịch vụ gửi email hóa đơn tự động qua SendGrid/Nodemailer.</p>
+
+        <div style="margin-top: 40px; text-align: right; font-style: italic;">
+            <p class="no-indent">Đà Nẵng, ngày 22 tháng 10 năm 2026</p>
+            <p class="no-indent" style="font-weight: bold; margin-top: 5px;">Sinh viên thực hiện báo cáo</p>
+            <p class="no-indent" style="margin-top: 45px; font-weight: bold;">Phạm Trương Vĩ Khang</p>
+        </div>
+    </div>
+
+</body>
+</html>

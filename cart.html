@@ -7,54 +7,126 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/cart.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Header -->
     <header class="header">
         <div class="container header-container">
             <div class="logo"><a href="index.html">TECH<span>ZONE</span></a></div>
-            <nav class="navbar" style="background:transparent; margin-left: 50px;">
-                <ul class="nav-links">
-                    <li><a href="index.html" style="color:var(--dark-color)">Tiếp tục mua sắm</a></li>
-                </ul>
-            </nav>
+            <a href="index.html" class="back-shopping">
+                <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm
+            </a>
         </div>
     </header>
 
-    <div class="container section">
-        <h2 style="margin-bottom: 20px;">GIỎ HÀNG CỦA BẠN</h2>
-        
-        <div class="cart-container">
-            <table class="cart-table">
-                <thead>
-                    <tr>
-                        <th>Sản phẩm</th>
-                        <th>Đơn giá</th>
-                        <th>Số lượng</th>
-                        <th>Thành tiền</th>
-                        <th>Xóa</th>
-                    </tr>
-                </thead>
-                <tbody id="cartTableBody">
-                    <!-- Injected by JS -->
-                </tbody>
-            </table>
+    <div class="cart-page-wrapper">
+        <div class="container">
 
-            <div class="cart-summary">
-                <div class="summary-row">
-                    <span>Tổng sản phẩm:</span>
-                    <span id="cartCountSum">0</span>
-                </div>
-                <div class="summary-row summary-total">
-                    <span>Tổng tiền:</span>
-                    <span id="cartTotal">0 đ</span>
-                </div>
-                <a href="checkout.html" class="btn-checkout">Tiến hành thanh toán</a>
+            <!-- Page Title -->
+            <div class="cart-page-title">
+                <h1><i class="fas fa-shopping-cart"></i> Giỏ hàng của bạn</h1>
+                <span class="cart-item-count" id="cartCountBadge">0 sản phẩm</span>
             </div>
+
+            <!-- Main Layout -->
+            <div class="cart-layout">
+
+                <!-- Left: Cart Items -->
+                <div class="cart-items-section">
+                    <!-- Table header -->
+                    <div class="cart-thead">
+                        <span class="col-product">Sản phẩm</span>
+                        <span class="col-price">Đơn giá</span>
+                        <span class="col-qty">Số lượng</span>
+                        <span class="col-total">Thành tiền</span>
+                        <span class="col-del"></span>
+                    </div>
+                    <!-- Table body -->
+                    <div id="cartTableBody">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Right: Summary -->
+                <div class="cart-summary-panel">
+                    <div class="summary-header">
+                        <i class="fas fa-receipt"></i> Tóm tắt đơn hàng
+                    </div>
+
+                    <div class="summary-body">
+                        <div class="summary-row">
+                            <span><i class="fas fa-box"></i> Tổng sản phẩm</span>
+                            <span id="cartCountSum" class="summary-val">0</span>
+                        </div>
+                        <div class="summary-row">
+                            <span><i class="fas fa-tags"></i> Tạm tính</span>
+                            <span id="cartSubtotal" class="summary-val">0 đ</span>
+                        </div>
+                        <div class="summary-row shipping-row">
+                            <span><i class="fas fa-truck"></i> Phí vận chuyển</span>
+                            <span class="summary-free">Miễn phí</span>
+                        </div>
+
+                        <div class="summary-divider"></div>
+
+                        <div class="summary-total-row">
+                            <span>Tổng thanh toán</span>
+                            <span id="cartTotal" class="total-amount">0 đ</span>
+                        </div>
+
+                        <a href="checkout.html" class="btn-checkout" id="checkoutBtn">
+                            <i class="fas fa-lock"></i>
+                            Thanh toán ngay
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+
+                        <div class="summary-secure">
+                            <i class="fas fa-shield-alt"></i>
+                            Thanh toán an toàn & bảo mật
+                        </div>
+
+                        <!-- Payment icons -->
+                        <div class="payment-icons">
+                            <span class="pay-icon">VISA</span>
+                            <span class="pay-icon">MC</span>
+                            <span class="pay-icon">MoMo</span>
+                            <span class="pay-icon">COD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- Cần data.js để có hàm formatPrice -->
     <script src="js/data.js"></script>
     <script src="js/cart.js"></script>
+    <script>
+        // Cập nhật badge count và subtotal đồng bộ
+        const _origSaveCart = saveCart;
+        const syncSummary = () => {
+            const cart = getCart();
+            const count = cart.reduce((s,i) => s + i.quantity, 0);
+            const total = cart.reduce((s,i) => s + i.price * i.quantity, 0);
+            const countEl = document.getElementById('cartCountSum');
+            const subtotalEl = document.getElementById('cartSubtotal');
+            const badgeEl = document.getElementById('cartCountBadge');
+            if (countEl) countEl.textContent = count;
+            if (subtotalEl) subtotalEl.textContent = formatPrice(total);
+            if (badgeEl) badgeEl.textContent = count + ' sản phẩm';
+        };
+        document.addEventListener('DOMContentLoaded', syncSummary);
+        // Patch renderCart to also sync
+        const _origRenderCart = window.renderCart;
+        document.addEventListener('DOMContentLoaded', () => {
+            const tbody = document.getElementById('cartTableBody');
+            if (tbody) {
+                const observer = new MutationObserver(syncSummary);
+                observer.observe(tbody, { childList: true, subtree: true });
+            }
+            syncSummary();
+        });
+    </script>
 </body>
 </html>

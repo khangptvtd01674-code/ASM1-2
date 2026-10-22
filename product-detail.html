@@ -3,60 +3,527 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi tiết sản phẩm</title>
+    <title>Chi tiết sản phẩm - TECHZONE</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/products.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        .product-detail-container {
-            background: #fff; padding: 40px; border-radius: var(--radius);
-            box-shadow: var(--shadow); display: flex; gap: 40px; margin-bottom: 40px;
+        body { background: #f0f4ff; }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 0;
+            font-size: 13px;
+            color: #888;
         }
-        .detail-image { flex: 1; text-align: center; }
-        .detail-image img { max-width: 100%; height: auto; max-height: 500px; object-fit: contain; }
-        .detail-info { flex: 1; }
-        .detail-info h1 { font-size: 28px; margin-bottom: 15px; color: var(--dark-color); }
-        .price-box { margin-bottom: 20px; }
-        .price-box .price { font-size: 28px; color: var(--danger); font-weight: bold; }
-        .price-box .old-price { font-size: 18px; color: #999; text-decoration: line-through; margin-left: 15px; }
-        .detail-desc { font-size: 16px; color: #555; margin-bottom: 25px; line-height: 1.8; }
-        
-        .quantity-box { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; }
-        .quantity-control { display: flex; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
-        .quantity-control button { width: 40px; height: 40px; background: #f8f9fa; border: none; cursor: pointer; font-size: 18px; }
-        .quantity-control button:hover { background: #e2e6ea; }
-        .quantity-control input { width: 50px; text-align: center; border: none; border-left: 1px solid var(--border); border-right: 1px solid var(--border); font-size: 16px; font-weight: bold; outline: none; }
-        
-        .action-btns { display: flex; gap: 15px; }
-        .btn-add-cart { padding: 15px 30px; background: var(--primary-color); color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; flex: 1; transition: var(--transition); }
-        .btn-add-cart:hover { background: #0056b3; }
-        .btn-buy-now { padding: 15px 30px; background: var(--danger); color: white; border: none; border-radius: 4px; font-size: 16px; font-weight: bold; cursor: pointer; flex: 1; transition: var(--transition); }
-        .btn-buy-now:hover { background: #c0392b; }
+        .breadcrumb a { color: #007bff; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb i { font-size: 10px; }
+
+        /* ===== DETAIL WRAPPER ===== */
+        .detail-page { padding: 0 0 60px; }
+
+        .detail-main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            background: #fff;
+            border-radius: 24px;
+            padding: 36px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+            margin-bottom: 28px;
+            animation: fade-in 0.4s ease;
+        }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== IMAGE PANEL ===== */
+        .detail-image-panel { position: relative; }
+        .detail-img-main {
+            background: linear-gradient(145deg, #f8faff, #eef2ff);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 380px;
+            position: relative;
+            overflow: hidden;
+            border: 1.5px solid #e8eef8;
+        }
+        .detail-img-main img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+        }
+        .detail-img-main:hover img { transform: scale(1.06); }
+
+        /* Badge on image */
+        .detail-badge {
+            position: absolute;
+            top: 14px; left: 14px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            z-index: 2;
+            letter-spacing: 0.5px;
+        }
+        .detail-badge-new  { background: linear-gradient(135deg,#22c55e,#16a34a); color:#fff; box-shadow: 0 3px 10px rgba(34,197,94,0.4); }
+        .detail-badge-hot  { background: linear-gradient(135deg,#e53935,#c62828); color:#fff; box-shadow: 0 3px 10px rgba(229,57,53,0.4); }
+        .detail-badge-sale { background: linear-gradient(135deg,#f59e0b,#d97706); color:#fff; box-shadow: 0 3px 10px rgba(245,158,11,0.4); }
+
+        /* Share / wish buttons */
+        .img-actions {
+            position: absolute;
+            top: 14px; right: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 3;
+        }
+        .img-action-btn {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.9);
+            border: 1.5px solid #e8eef8;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.2s;
+            backdrop-filter: blur(4px);
+        }
+        .img-action-btn:hover { background: #007bff; color: #fff; border-color: #007bff; transform: scale(1.1); }
+
+        /* Thumbnails */
+        .detail-thumbs {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .detail-thumb {
+            width: 72px; height: 72px;
+            border-radius: 12px;
+            background: #f8faff;
+            border: 2px solid #e8eef8;
+            padding: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .detail-thumb:hover, .detail-thumb.active { border-color: #007bff; background: #f0f7ff; }
+        .detail-thumb img { width: 100%; height: 100%; object-fit: contain; }
+
+        /* ===== INFO PANEL ===== */
+        .detail-info { display: flex; flex-direction: column; }
+
+        /* Category tag */
+        .detail-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #007bff;
+            background: #f0f7ff;
+            border: 1px solid #c7deff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            width: fit-content;
+        }
+
+        .detail-title {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1a1a2e;
+            line-height: 1.3;
+            margin-bottom: 14px;
+            letter-spacing: -0.3px;
+        }
+
+        /* Rating row */
+        .detail-rating-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+        .stars { color: #f59e0b; font-size: 15px; }
+        .rating-count { font-size: 13px; color: #888; }
+        .rating-divider { color: #ddd; }
+        .sold-count { font-size: 13px; color: #555; font-weight: 600; }
+
+        /* Price box */
+        .detail-price-box {
+            background: linear-gradient(135deg, #fff8f8, #fff0f0);
+            border: 1.5px solid #fca5a5;
+            border-radius: 16px;
+            padding: 18px 20px;
+            margin-bottom: 20px;
+        }
+        .detail-price-main { font-size: 34px; font-weight: 900; color: #e53935; line-height: 1; }
+        .detail-price-old  { font-size: 16px; color: #bbb; text-decoration: line-through; margin-left: 10px; }
+        .detail-discount-badge {
+            display: inline-block;
+            background: #e53935;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .detail-price-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px; }
+        .detail-save { font-size: 13px; color: #22c55e; font-weight: 600; margin-top: 6px; }
+
+        /* Description */
+        .detail-desc {
+            font-size: 14.5px;
+            color: #555;
+            line-height: 1.85;
+            margin-bottom: 20px;
+            padding: 14px 16px;
+            background: #fafbff;
+            border-radius: 12px;
+            border-left: 3px solid #007bff;
+        }
+
+        /* Quantity */
+        .detail-qty-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .qty-label { font-size: 14px; font-weight: 700; color: #333; }
+        .qty-control {
+            display: flex;
+            align-items: center;
+            border: 2px solid #e8eef8;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .qty-btn {
+            width: 42px; height: 42px;
+            border: none;
+            background: #f8faff;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 700;
+            color: #007bff;
+            transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .qty-btn:hover { background: #007bff; color: #fff; }
+        .qty-input {
+            width: 52px;
+            text-align: center;
+            border: none;
+            border-left: 2px solid #e8eef8;
+            border-right: 2px solid #e8eef8;
+            font-size: 16px;
+            font-weight: 800;
+            color: #1a1a2e;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            padding: 8px 0;
+        }
+        .qty-stock { font-size: 13px; color: #888; }
+        .qty-stock strong { color: #22c55e; }
+
+        /* Action buttons */
+        .detail-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .btn-add-cart {
+            flex: 1;
+            padding: 15px 20px;
+            background: #fff;
+            border: 2px solid #007bff;
+            color: #007bff;
+            border-radius: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-add-cart:hover { background: #007bff; color: #fff; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,123,255,0.3); }
+        .btn-buy-now {
+            flex: 1;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #e53935, #c62828);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 6px 18px rgba(229,57,53,0.3);
+        }
+        .btn-buy-now:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(229,57,53,0.4); }
+
+        /* Trust badges */
+        .detail-trust {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            background: #f8faff;
+            border: 1.5px solid #e8eef8;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+        .trust-badge i { color: #22c55e; font-size: 16px; }
+        .trust-badge span { font-size: 11px; color: #888; display: block; font-weight: 400; }
+
+        /* ===== TABS ===== */
+        .detail-tabs {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.04);
+            overflow: hidden;
+            margin-bottom: 28px;
+        }
+        .tab-nav {
+            display: flex;
+            border-bottom: 1px solid #f0f4ff;
+            background: #f8faff;
+        }
+        .tab-btn {
+            padding: 16px 28px;
+            border: none;
+            background: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: #007bff;
+            transform: scaleX(0);
+            transition: transform 0.2s;
+        }
+        .tab-btn.active { color: #007bff; background: #fff; }
+        .tab-btn.active::after { transform: scaleX(1); }
+        .tab-content { padding: 28px; display: none; }
+        .tab-content.active { display: block; }
+        .tab-content p { font-size: 14.5px; color: #555; line-height: 1.9; }
+
+        /* Specs table */
+        .specs-table { width: 100%; border-collapse: collapse; }
+        .specs-table tr { border-bottom: 1px solid #f0f4ff; }
+        .specs-table tr:last-child { border-bottom: none; }
+        .specs-table td { padding: 12px 16px; font-size: 14px; }
+        .specs-table td:first-child { color: #888; font-weight: 600; width: 40%; background: #f8faff; }
+        .specs-table td:last-child { color: #1a1a2e; font-weight: 500; }
+
+        /* Reviews */
+        .review-summary {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            margin-bottom: 24px;
+            background: #f8faff;
+            border-radius: 16px;
+            padding: 20px 24px;
+        }
+        .review-big-num { font-size: 52px; font-weight: 900; color: #f59e0b; line-height: 1; }
+        .review-big-label { font-size: 13px; color: #888; }
+        .review-stars-big { font-size: 22px; color: #f59e0b; margin-bottom: 4px; }
+        .review-bars { flex: 1; }
+        .review-bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; font-size: 12px; color: #888; }
+        .review-bar-track { flex: 1; height: 6px; background: #e8eef8; border-radius: 4px; overflow: hidden; }
+        .review-bar-fill { height: 100%; background: linear-gradient(90deg, #f59e0b, #fcd34d); border-radius: 4px; }
+
+        /* ===== RELATED SECTION ===== */
+        .related-section { margin-bottom: 40px; }
+        .related-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+        .related-icon {
+            width: 44px; height: 44px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #007bff, #0056d2);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 18px;
+        }
+        .related-header h2 { font-size: 20px; font-weight: 800; color: #1a1a2e; }
+
+        /* Sticky buy bar on scroll */
+        .sticky-buy {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid #e8eef8;
+            padding: 12px 24px;
+            display: none;
+            align-items: center;
+            gap: 16px;
+            z-index: 999;
+            box-shadow: 0 -6px 30px rgba(0,0,0,0.08);
+        }
+        .sticky-buy.visible { display: flex; animation: slide-up 0.3s ease; }
+        @keyframes slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .sticky-product-name { font-size: 14px; font-weight: 700; color: #1a1a2e; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .sticky-price { font-size: 20px; font-weight: 900; color: #e53935; white-space: nowrap; }
+        .sticky-btn {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #007bff, #0056d2);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            white-space: nowrap;
+            box-shadow: 0 4px 14px rgba(0,123,255,0.3);
+            transition: all 0.2s;
+        }
+        .sticky-btn:hover { transform: translateY(-1px); }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header class="header">
         <div class="container header-container">
             <div class="logo"><a href="index.html">TECH<span>ZONE</span></a></div>
             <div class="header-actions">
-                <a href="cart.html" class="action-btn"><i class="fas fa-shopping-cart"></i>Giỏ hàng<span id="cartCount" class="badge">0</span></a>
+                <a href="index.html" class="action-btn"><i class="fas fa-home"></i><span>Trang chủ</span></a>
+                <a href="products.html" class="action-btn"><i class="fas fa-store"></i><span>Sản phẩm</span></a>
+                <a href="cart.html" class="action-btn">
+                    <i class="fas fa-shopping-cart"></i>Giỏ hàng
+                    <span id="cartCount" class="badge">0</span>
+                </a>
             </div>
         </div>
+        <nav class="navbar">
+            <div class="container">
+                <ul class="nav-links">
+                    <li><a href="index.html">🏠 Trang chủ</a></li>
+                    <li><a href="products.html?category=mouse_keyboard">🖱️ Chuột & Phím</a></li>
+                    <li><a href="products.html?category=charger_cable">🔌 Cáp Sạc</a></li>
+                    <li><a href="products.html?category=audio">🎧 Âm thanh</a></li>
+                    <li><a href="products.html?category=bag">🎒 Balo Túi</a></li>
+                    <li><a href="products.html?sale=true" class="sale-link">Khuyến mãi</a></li>
+                </ul>
+            </div>
+        </nav>
     </header>
 
-    <div class="container section">
-        <div class="product-detail-container" id="detailContainer">
+    <div class="container detail-page">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" id="breadcrumb">
+            <a href="index.html">Trang chủ</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="products.html">Sản phẩm</a>
+            <i class="fas fa-chevron-right"></i>
+            <span id="breadcrumbName">Đang tải...</span>
+        </nav>
+
+        <!-- Main detail -->
+        <div class="detail-main" id="detailContainer">
             <!-- Injected by JS -->
+            <div style="grid-column:1/-1;text-align:center;padding:60px;color:#aaa">
+                <i class="fas fa-spinner fa-spin" style="font-size:36px;margin-bottom:12px;display:block"></i>
+                Đang tải sản phẩm...
+            </div>
         </div>
 
-        <div class="section-header">
-            <h2>SẢN PHẨM LIÊN QUAN</h2>
+        <!-- Tabs -->
+        <div class="detail-tabs" id="detailTabs" style="display:none">
+            <div class="tab-nav">
+                <button class="tab-btn active" onclick="switchTab('desc', this)">📋 Mô tả sản phẩm</button>
+                <button class="tab-btn" onclick="switchTab('specs', this)">🔧 Thông số kỹ thuật</button>
+                <button class="tab-btn" onclick="switchTab('reviews', this)">⭐ Đánh giá</button>
+            </div>
+            <div class="tab-content active" id="tab-desc">
+                <p id="productDesc">Đang tải...</p>
+            </div>
+            <div class="tab-content" id="tab-specs">
+                <table class="specs-table" id="specsTable"></table>
+            </div>
+            <div class="tab-content" id="tab-reviews">
+                <div class="review-summary" id="reviewSummary"></div>
+                <p style="color:#888;font-size:14px;text-align:center;padding:20px">Chưa có đánh giá nào. Hãy là người đầu tiên đánh giá!</p>
+            </div>
         </div>
-        <div class="product-grid" id="relatedProducts"></div>
+
+        <!-- Related products -->
+        <div class="related-section" id="relatedSection" style="display:none">
+            <div class="related-header">
+                <div class="related-icon"><i class="fas fa-layer-group"></i></div>
+                <div>
+                    <h2>Sản phẩm liên quan</h2>
+                    <p style="font-size:13px;color:#999;margin-top:2px">Cùng danh mục · Có thể bạn thích</p>
+                </div>
+            </div>
+            <div class="product-grid" id="relatedProducts"></div>
+        </div>
     </div>
 
-    <script src="js/data.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="js/product-detail.js"></script>
+    <!-- Sticky buy bar -->
+    <div class="sticky-buy" id="stickyBuy">
+        <div class="sticky-product-name" id="stickyName"></div>
+        <div class="sticky-price" id="stickyPrice"></div>
+        <button class="sticky-btn" onclick="document.getElementById('btnAddCart').click()">
+            <i class="fas fa-cart-plus"></i> Thêm vào giỏ
+        </button>
+        <button class="sticky-btn" style="background:linear-gradient(135deg,#e53935,#c62828);box-shadow:0 4px 14px rgba(229,57,53,0.3)"
+                onclick="document.getElementById('btnBuyNow').click()">
+            <i class="fas fa-bolt"></i> Mua ngay
+        </button>
+    </div>
+
+    <script>
+    function switchTab(tabId, btn) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + tabId).classList.add('active');
+    }
+    </script>
+    <script src="js/data.js?v=5"></script>
+    <script src="js/cart.js?v=5"></script>
+    <script src="js/product-detail.js?v=5"></script>
 </body>
 </html>

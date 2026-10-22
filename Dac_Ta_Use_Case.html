@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài Liệu Đặc Tả Use Case - Website TECHZONE</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #000000;
+            background: #ffffff;
+            padding: 40px 30px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+        .doc-header {
+            text-align: center;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .doc-header h1 {
+            font-size: 24px;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .doc-header p {
+            font-size: 15px;
+            color: #222222;
+        }
+        .actions {
+            margin: 20px 0;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+        .btn {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 8px 18px;
+            border: 1.5px solid #000;
+            background: #fff;
+            color: #000;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            background: #000;
+            color: #fff;
+        }
+        @media print {
+            .actions { display: none; }
+            body { padding: 0; }
+        }
+
+        h2 {
+            font-size: 18px;
+            text-transform: uppercase;
+            border-bottom: 1.5px solid #000000;
+            padding-bottom: 6px;
+            margin-top: 36px;
+            margin-bottom: 16px;
+        }
+        h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 24px;
+            margin-bottom: 10px;
+            color: #111;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0 25px 0;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #000000;
+            padding: 8px 12px;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+            font-weight: bold;
+        }
+        .table-center th, .table-center td {
+            text-align: center;
+        }
+        .table-center td.text-left {
+            text-align: left;
+        }
+
+        /* Use case detailed table */
+        .uc-spec-table th {
+            width: 25%;
+            background-color: #f8f8f8;
+            font-weight: bold;
+        }
+        .uc-spec-table td {
+            width: 75%;
+        }
+        .flow-step {
+            margin-bottom: 4px;
+        }
+        .tag-include {
+            font-family: Consolas, monospace;
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="actions">
+        <button class="btn" onclick="window.print()">🖨️ In ra PDF / Giấy (A4)</button>
+        <a href="use_case_diagram.html" class="btn">📊 Xem Sơ Đồ Use Case</a>
+        <a href="Bao_Cao_Assignment.html" class="btn">📄 Báo Cáo Assignment</a>
+        <a href="index.html" class="btn">🏠 Trang Chủ</a>
+    </div>
+
+    <div class="doc-header">
+        <h1>TÀI LIỆU ĐẶC TẢ CA SỬ DỤNG (USE CASE SPECIFICATION)</h1>
+        <p><strong>Dự án:</strong> Hệ Thống Website Thương Mại Điện Tử Phụ Kiện Công Nghệ TECHZONE</p>
+        <p><strong>Học phần:</strong> Lập Trình Cơ Sở Với JavaScript (WEB1043 / WEB1404)</p>
+    </div>
+
+    <!-- PHẦN I: TỔNG QUAN HỆ THỐNG & ACTORS -->
+    <h2>I. TÁC NHÂN HỆ THỐNG (ACTORS)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th width="10%">STT</th>
+                <th width="25%">Tên Tác Nhân</th>
+                <th width="20%">Loại Tác Nhân</th>
+                <th>Mô Tả Vai Trò &amp; Trách Nhiệm</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td align="center">1</td>
+                <td><strong>Khách hàng</strong><br><em>(User / Guest)</em></td>
+                <td>Tác nhân chính (Primary)</td>
+                <td>Người dùng truy cập website xem banner, tìm kiếm sản phẩm, xem chi tiết, đăng ký/đăng nhập tài khoản, thêm hàng vào giỏ, đặt hàng online và theo dõi lịch sử đơn hàng.</td>
+            </tr>
+            <tr>
+                <td align="center">2</td>
+                <td><strong>Quản trị viên</strong><br><em>(Admin)</em></td>
+                <td>Tác nhân chính (Primary)</td>
+                <td>Người điều hành hệ thống có tài khoản đặc quyền, đăng nhập vào trang quản trị để xem thống kê Dashboard, quản lý danh mục sản phẩm (thêm/sửa/xóa), duyệt và cập nhật trạng thái đơn hàng, quản lý danh sách tài khoản khách hàng.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- PHẦN II: DANH MỤC TỔNG HỢP CÁC USE CASE -->
+    <h2>II. DANH MỤC CA SỬ DỤNG HỆ THỐNG</h2>
+    <table>
+        <thead>
+            <tr>
+                <th width="10%">Mã UC</th>
+                <th width="28%">Tên Ca Sử Dụng</th>
+                <th width="22%">Tác Nhân</th>
+                <th width="15%">Quan Hệ</th>
+                <th>Mô Tả Tóm Tắt</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td align="center"><strong>UC01</strong></td>
+                <td>Xem Banner &amp; Slider</td>
+                <td>Khách hàng</td>
+                <td>-</td>
+                <td>Tự động trình chiếu banner khuyến mãi 5s và chuyển slide bằng nút điều khiển.</td>
+            </tr>
+            <tr>
+                <td align="center"><strong>UC02</strong></td>
+                <td>Tìm kiếm &amp; Lọc sản phẩm</td>
+                <td>Khách hàng</td>
+                <td>-</td>
+                <td>Tìm kiếm theo tên sản phẩm thời gian thực và lọc theo danh mục: Chuột, Phím, Tai nghe,...</td>
+            </tr>
+            <tr>
+                <td align="center"><strong>UC03</strong></td>
+                <td>Xem chi tiết sản phẩm</td>
+                <td>Khách hàng</td>
+                <td>-</td>
+                <td>Xem ảnh phóng to, thông số kỹ thuật, đánh giá sao, bảng giá và chọn số lượng.</td>
+            </tr>
+            <tr>
+                <td align="center"><strong>UC04</strong></td>
+                <td>Đăng ký tài khoản</td>
+                <td>Khách hàng</td>
+                <td>-</td>
+                <td>Nhập thông tin cá nhân, hệ thống kiểm tra định dạng Regex và lưu vào LocalStorage.</td>
+            </tr>
+            <tr>
+                <td align="center"><strong>UC05</strong></td>
+                <td><strong>Đăng nhập hệ thống</strong></td>
+                <td>Khách hàng &amp; Admin</td>
+                <td><span class="tag-include">TRUNG TÂM</span></td>
+                <td>Xác thực thông tin tài khoản. Phân luồng User về Trang chủ hoặc Admin vào Dashboard.</td>
+            </tr>
+            <tr>
+                <td align="center"><strong>UC06</strong></td>
+                <td>Quản lý giỏ hàng</td>
+                <td>Khách hàng</td>
+                <td>-</td>
+                <td>Thêm, sửa số lượng, xóa từng món hoặc xóa toàn bộ giỏ, tính tổng tiền tự động.</td>
+            </tr>
+            <tr>
+                <td align="center"><strong>UC07</strong></td>
+                <td>Đặt hàng &amp; Thanh toán</td>
+                <td>Khách hàng</td>
+                <td><span class="tag-include">&lt;&lt;include&gt;&gt; UC05, UC06</span></td>
+                <td>Nhập địa chỉ giao hàng, chọn hình thức thanh toán (COD / Chuyển khoản) và tạo đơn hàng.</td>
+            </tr>
+            <tr>
+                <td align="center"><strong>UC08</strong></td>
+                <td>Xem lịch sử đơn hàng</td>
+                <td>Khách hàng</td>
+                <td><span class="tag-include">&lt;&lt;include&gt;&gt; UC05</span></td>
+                <td>Xem danh sách các đơn hàng đã mua và tiến trình trạng thái (Chờ xác nhận, Đang giao, Đã giao).</td>
+            </tr>
+            <tr>
+                <td align="center"><strong>UC09</strong></td>
+                <td>Quản lý hồ sơ cá nhân</td>
+                <td>Khách hàng</td>
+                <td><span class="tag-include">&lt;&lt;include&gt;&gt; UC05</span></td>
+                <td>Xem và cập nhật thông tin họ tên, số điện thoại, mật khẩu cá nhân.</td>
+            </tr>
+            <tr>
+                <td align="center"><strong>UC10</strong></td>
+                <td>Thống kê Dashboard</td>
+                <td>Quản trị viên</td>
+                <td><span class="tag-include">&lt;&lt;include&gt;&gt; UC05</span></td>
+                <td>Hiển thị tổng doanh thu, số đơn hàng, tổng sản phẩm và số lượng khách hàng.</td>
+            </tr>
+            <tr>
+                <td align="center"><strong>UC11</strong></td>
+                <td>Quản lý sản phẩm (CRUD)</td>
+                <td>Quản trị viên</td>
+                <td><span class="tag-include">&lt;&lt;include&gt;&gt; UC05</span></td>
+                <td>Thêm sản phẩm mới, cập nhật giá/hình ảnh/kho và xóa sản phẩm không kinh doanh.</td>
+            </tr>
+            <tr>
+                <td align="center"><strong>UC12</strong></td>
+                <td>Quản lý đơn hàng</td>
+                <td>Quản trị viên</td>
+                <td><span class="tag-include">&lt;&lt;include&gt;&gt; UC05</span></td>
+                <td>Xem toàn bộ đơn hàng khách đã đặt trên hệ thống và chi tiết người mua.</td>
+            </tr>
+            <tr>
+                <td align="center"><strong>UC13</strong></td>
+                <td>Cập nhật trạng thái đơn</td>
+                <td>Quản trị viên</td>
+                <td><span class="tag-include">&lt;&lt;include&gt;&gt; UC12</span></td>
+                <td>Chuyển trạng thái đơn sang Đang xử lý, Đang giao hàng, Hoàn thành hoặc Hủy đơn.</td>
+            </tr>
+            <tr>
+                <td align="center"><strong>UC14</strong></td>
+                <td>Quản lý khách hàng</td>
+                <td>Quản trị viên</td>
+                <td><span class="tag-include">&lt;&lt;include&gt;&gt; UC05</span></td>
+                <td>Xem danh sách tài khoản đã đăng ký, hỗ trợ khóa hoặc xóa tài khoản vi phạm.</td>
+            </tr>
+            <tr>
+                <td align="center"><strong>UC15</strong></td>
+                <td>Đăng xuất hệ thống</td>
+                <td>Khách hàng &amp; Admin</td>
+                <td>-</td>
+                <td>Xóa phiên đăng nhập hiện tại và quay về màn hình trang chủ / đăng nhập.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- PHẦN III: ĐẶC TẢ CHI TIẾT CÁC USE CASE QUAN TRỌNG -->
+    <h2>III. ĐẶC TẢ CHI TIẾT CÁC USE CASE CỐT LÕI (DETAILED SPECIFICATIONS)</h2>
+
+    <!-- UC05: ĐĂNG NHẬP -->
+    <h3>1. Đặc Tả UC05: Đăng Nhập Hệ Thống (Use Case Trung Tâm)</h3>
+    <table class="uc-spec-table">
+        <tr>
+            <th>Mã Use Case</th>
+            <td><strong>UC05</strong></td>
+        </tr>
+        <tr>
+            <th>Tên Use Case</th>
+            <td><strong>Đăng nhập hệ thống (System Login)</strong></td>
+        </tr>
+        <tr>
+            <th>Tác nhân (Actor)</th>
+            <td>Khách hàng (User) &amp; Quản trị viên (Admin)</td>
+        </tr>
+        <tr>
+            <th>Mô tả tóm tắt</th>
+            <td>Cho phép người dùng hoặc quản trị viên xác thực thông tin tài khoản (Email, Mật khẩu) để truy cập các tính năng tương ứng theo phân quyền.</td>
+        </tr>
+        <tr>
+            <th>Tiền điều kiện (Preconditions)</th>
+            <td>Người dùng đã có tài khoản (đăng ký từ trước hoặc tài khoản quản trị mặc định của hệ thống).</td>
+        </tr>
+        <tr>
+            <th>Hậu điều kiện (Postconditions)</th>
+            <td>Hệ thống lưu thông tin phiên đăng nhập vào <code>localStorage.setItem('techzone_current_user', ...)</code> và điều hướng tới giao diện phù hợp.</td>
+        </tr>
+        <tr>
+            <th>Luồng sự kiện chính (Basic Flow)</th>
+            <td>
+                <div class="flow-step">1. Người dùng bấm vào nút "Đăng nhập" trên Header của trang web.</div>
+                <div class="flow-step">2. Hệ thống hiển thị biểu mẫu đăng nhập gồm ô Email, Mật khẩu và nút "Đăng nhập".</div>
+                <div class="flow-step">3. Người dùng nhập Email và Mật khẩu, sau đó bấm nút "Đăng nhập".</div>
+                <div class="flow-step">4. Hệ thống kiểm tra dữ liệu:
+                    <ul>
+                        <li>Nếu là tài khoản Admin (<code>admin@techzone.vn</code>): Hệ thống cấp quyền Admin và chuyển hướng sang trang <strong>Quản Trị (admin.html)</strong>.</li>
+                        <li>Nếu là tài khoản Khách hàng: Hệ thống đối chiếu dữ liệu trong danh sách <code>techzone_users</code> tại LocalStorage. Nếu trùng khớp, lưu thông tin vào <code>techzone_current_user</code> và chuyển hướng về <strong>Trang Chủ (index.html)</strong>.</li>
+                    </ul>
+                </div>
+                <div class="flow-step">5. Header cập nhật hiển thị tên người dùng và nút "Đăng xuất".</div>
+            </td>
+        </tr>
+        <tr>
+            <th>Luồng ngoại lệ (Alternative / Exception Flows)</th>
+            <td>
+                <div class="flow-step"><strong>4a. Bỏ trống thông tin:</strong> Hệ thống hiển thị cảnh báo đỏ "Vui lòng nhập đầy đủ Email và Mật khẩu".</div>
+                <div class="flow-step"><strong>4b. Sai Email hoặc Mật khẩu:</strong> Hệ thống thông báo lỗi "Email hoặc mật khẩu không chính xác, vui lòng thử lại!". Người dùng ở lại màn hình đăng nhập.</div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- UC04: ĐĂNG KÝ -->
+    <h3>2. Đặc Tả UC04: Đăng Ký Tài Khoản</h3>
+    <table class="uc-spec-table">
+        <tr>
+            <th>Mã Use Case</th>
+            <td><strong>UC04</strong></td>
+        </tr>
+        <tr>
+            <th>Tên Use Case</th>
+            <td><strong>Đăng ký tài khoản (User Registration)</strong></td>
+        </tr>
+        <tr>
+            <th>Tác nhân (Actor)</th>
+            <td>Khách hàng (Guest)</td>
+        </tr>
+        <tr>
+            <th>Mô tả tóm tắt</th>
+            <td>Cho phép khách vãng lai đăng ký tài khoản thành viên mới trên website.</td>
+        </tr>
+        <tr>
+            <th>Tiền điều kiện</th>
+            <td>Khách chưa đăng nhập vào hệ thống.</td>
+        </tr>
+        <tr>
+            <th>Hậu điều kiện</th>
+            <td>Thông tin tài khoản mới được tạo và thêm vào danh sách <code>techzone_users</code> trên LocalStorage.</td>
+        </tr>
+        <tr>
+            <th>Luồng sự kiện chính (Basic Flow)</th>
+            <td>
+                <div class="flow-step">1. Khách hàng bấm chọn "Đăng ký" trên Header.</div>
+                <div class="flow-step">2. Hệ thống hiển thị form đăng ký (Họ và tên, Email, Số điện thoại, Mật khẩu, Nhập lại mật khẩu).</div>
+                <div class="flow-step">3. Khách hàng điền thông tin và bấm nút "Đăng ký ngay".</div>
+                <div class="flow-step">4. Hệ thống kiểm tra dữ liệu bằng biểu thức chính quy (Regex):
+                    <ul>
+                        <li>Họ tên không được để trống.</li>
+                        <li>Email đúng định dạng <code>/^[^\s@]+@[^\s@]+\.[^\s@]+$/</code>.</li>
+                        <li>Số điện thoại đúng chuẩn 10 chữ số <code>/^(0|\+84)[0-9]{9}$/</code>.</li>
+                        <li>Mật khẩu tối thiểu 6 ký tự.</li>
+                        <li>Mật khẩu xác nhận phải trùng khớp 100%.</li>
+                        <li>Email chưa từng được sử dụng để đăng ký.</li>
+                    </ul>
+                </div>
+                <div class="flow-step">5. Hệ thống lưu tài khoản mới vào LocalStorage, thông báo "Đăng ký thành công" và tự động chuyển hướng sang trang Đăng nhập.</div>
+            </td>
+        </tr>
+        <tr>
+            <th>Luồng ngoại lệ</th>
+            <td>
+                <div class="flow-step"><strong>4a. Dữ liệu sai định dạng:</strong> Hệ thống hiển thị dòng chữ đỏ thông báo lỗi tương ứng ngay dưới từng trường dữ liệu không hợp lệ.</div>
+                <div class="flow-step"><strong>4b. Email đã tồn tại:</strong> Hệ thống báo "Email này đã được sử dụng. Vui lòng chọn email khác hoặc đăng nhập!".</div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- UC06: QUẢN LÝ GIỎ HÀNG -->
+    <h3>3. Đặc Tả UC06: Quản Lý Giỏ Hàng</h3>
+    <table class="uc-spec-table">
+        <tr>
+            <th>Mã Use Case</th>
+            <td><strong>UC06</strong></td>
+        </tr>
+        <tr>
+            <th>Tên Use Case</th>
+            <td><strong>Quản lý giỏ hàng (Cart Management)</strong></td>
+        </tr>
+        <tr>
+            <th>Tác nhân (Actor)</th>
+            <td>Khách hàng (User / Guest)</td>
+        </tr>
+        <tr>
+            <th>Mô tả tóm tắt</th>
+            <td>Người dùng thêm sản phẩm vào giỏ, điều chỉnh số lượng tăng/giảm, xóa món hàng hoặc dọn sạch giỏ hàng.</td>
+        </tr>
+        <tr>
+            <th>Tiền điều kiện</th>
+            <td>Người dùng đang duyệt sản phẩm trên trang chủ hoặc trang chi tiết.</td>
+        </tr>
+        <tr>
+            <th>Hậu điều kiện</th>
+            <td>Biến <code>techzone_cart</code> trong LocalStorage được cập nhật; số lượng huy hiệu (Badge) trên icon Giỏ hàng thay đổi tương ứng.</td>
+        </tr>
+        <tr>
+            <th>Luồng sự kiện chính (Basic Flow)</th>
+            <td>
+                <div class="flow-step">1. Người dùng bấm "Thêm vào giỏ hàng" tại thẻ sản phẩm hoặc trang chi tiết.</div>
+                <div class="flow-step">2. Hệ thống kiểm tra nếu sản phẩm đã có trong giỏ thì tăng số lượng lên +1, nếu chưa có thì thêm sản phẩm mới với số lượng mặc định 1.</div>
+                <div class="flow-step">3. Hệ thống hiển thị Toast Notification thông báo "Đã thêm sản phẩm vào giỏ hàng thành công!".</div>
+                <div class="flow-step">4. Người dùng bấm vào biểu tượng Giỏ hàng trên Header để xem trang Giỏ hàng.</div>
+                <div class="flow-step">5. Người dùng có thể:
+                    <ul>
+                        <li>Bấm nút <strong>[+]</strong> hoặc <strong>[-]</strong> để tăng/giảm số lượng.</li>
+                        <li>Bấm nút <strong>[Xóa]</strong> để loại bỏ một sản phẩm khỏi giỏ.</li>
+                        <li>Bấm nút <strong>[Xóa toàn bộ giỏ]</strong> để dọn sạch.</li>
+                    </ul>
+                </div>
+                <div class="flow-step">6. Hệ thống tự động tính lại tổng tiền hàng (Tạm tính, Giảm giá, Tổng thanh toán) ngay lập tức.</div>
+            </td>
+        </tr>
+        <tr>
+            <th>Luồng ngoại lệ</th>
+            <td>
+                <div class="flow-step"><strong>5a. Giảm số lượng về 0:</strong> Hệ thống hiển thị hộp thoại xác nhận muốn xóa sản phẩm đó khỏi giỏ hay không.</div>
+                <div class="flow-step"><strong>5b. Giỏ hàng trống:</strong> Hiển thị giao diện "Giỏ hàng của bạn đang trống" kèm nút "Tiếp tục mua sắm". Nút Thanh toán bị vô hiệu hóa.</div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- UC07: ĐẶT HÀNG & THANH TOÁN -->
+    <h3>4. Đặc Tả UC07: Đặt Hàng &amp; Thanh Toán (Checkout &amp; Order)</h3>
+    <table class="uc-spec-table">
+        <tr>
+            <th>Mã Use Case</th>
+            <td><strong>UC07</strong></td>
+        </tr>
+        <tr>
+            <th>Tên Use Case</th>
+            <td><strong>Đặt hàng &amp; Thanh toán (Place Order)</strong></td>
+        </tr>
+        <tr>
+            <th>Tác nhân (Actor)</th>
+            <td>Khách hàng</td>
+        </tr>
+        <tr>
+            <th>Quan hệ</th>
+            <td>Bao gồm: <span class="tag-include">&lt;&lt;include&gt;&gt; UC05 (Đăng nhập)</span>, <span class="tag-include">&lt;&lt;include&gt;&gt; UC06 (Giỏ hàng)</span></td>
+        </tr>
+        <tr>
+            <th>Tiền điều kiện</th>
+            <td>Giỏ hàng có ít nhất 1 sản phẩm và người dùng đã đăng nhập tài khoản.</td>
+        </tr>
+        <tr>
+            <th>Hậu điều kiện</th>
+            <td>Đơn hàng mới được tạo với mã định danh (Ví dụ: <code>TZ-20261022-XXXX</code>), lưu vào danh sách đơn hàng <code>techzone_orders</code>, và giỏ hàng được làm rỗng.</td>
+        </tr>
+        <tr>
+            <th>Luồng sự kiện chính (Basic Flow)</th>
+            <td>
+                <div class="flow-step">1. Người dùng bấm nút "Tiến hành Đặt Hàng" từ trang Giỏ hàng.</div>
+                <div class="flow-step">2. Hệ thống kiểm tra trạng thái đăng nhập: Đã đăng nhập hợp lệ.</div>
+                <div class="flow-step">3. Hệ thống hiển thị biểu mẫu thanh toán với thông tin đơn hàng, tổng tiền và các trường nhập: Họ tên người nhận, Số điện thoại, Địa chỉ giao hàng, Ghi chú đơn hàng.</div>
+                <div class="flow-step">4. Người dùng chọn phương thức thanh toán:
+                    <ul>
+                        <li>Thanh toán khi nhận hàng (COD).</li>
+                        <li>Chuyển khoản ngân hàng (Hiển thị mã QR VietQR / Số tài khoản).</li>
+                    </ul>
+                </div>
+                <div class="flow-step">5. Người dùng bấm nút "Xác Nhận Đặt Hàng".</div>
+                <div class="flow-step">6. Hệ thống tạo đơn hàng với trạng thái mặc định "Chờ xác nhận", lưu vào LocalStorage, xóa sạch giỏ hàng hiện tại.</div>
+                <div class="flow-step">7. Hệ thống chuyển hướng người dùng tới trang Thông Báo Đặt Hàng Thành Công kèm mã đơn hàng.</div>
+            </td>
+        </tr>
+        <tr>
+            <th>Luồng ngoại lệ</th>
+            <td>
+                <div class="flow-step"><strong>2a. Chưa đăng nhập:</strong> Hệ thống chuyển hướng sang trang Đăng nhập kèm thông báo "Vui lòng đăng nhập để tiến hành đặt hàng!".</div>
+                <div class="flow-step"><strong>3a. Thiếu thông tin giao hàng:</strong> Hệ thống báo lỗi yêu cầu điền đầy đủ địa chỉ nhận hàng và số điện thoại trước khi bấm đặt.</div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- UC11: QUẢN LÝ SẢN PHẨM ADMIN -->
+    <h3>5. Đặc Tả UC11: Quản Lý Sản Phẩm (CRUD Admin)</h3>
+    <table class="uc-spec-table">
+        <tr>
+            <th>Mã Use Case</th>
+            <td><strong>UC11</strong></td>
+        </tr>
+        <tr>
+            <th>Tên Use Case</th>
+            <td><strong>Quản lý sản phẩm (Product CRUD Management)</strong></td>
+        </tr>
+        <tr>
+            <th>Tác nhân (Actor)</th>
+            <td>Quản trị viên (Admin)</td>
+        </tr>
+        <tr>
+            <th>Quan hệ</th>
+            <td>Bao gồm: <span class="tag-include">&lt;&lt;include&gt;&gt; UC05 (Đăng nhập Admin)</span></td>
+        </tr>
+        <tr>
+            <th>Tiền điều kiện</th>
+            <td>Đăng nhập thành công với tài khoản Quản trị viên (Admin).</td>
+        </tr>
+        <tr>
+            <th>Hậu điều kiện</th>
+            <td>Danh sách sản phẩm trong hệ thống (LocalStorage <code>techzone_products</code>) được cập nhật thêm mới, sửa đổi hoặc xóa bỏ.</td>
+        </tr>
+        <tr>
+            <th>Luồng sự kiện chính (Basic Flow)</th>
+            <td>
+                <div class="flow-step">1. Quản trị viên chọn mục "Quản lý sản phẩm" trên menu quản trị (admin.html).</div>
+                <div class="flow-step">2. Hệ thống tải và hiển thị danh sách sản phẩm hiện có dạng bảng (Ảnh, Tên, Danh mục, Giá gốc, Giá sale, Số lượng tồn, Thao tác).</div>
+                <div class="flow-step">3. Quản trị viên thực hiện một trong các thao tác:
+                    <ul>
+                        <li><strong>Thêm sản phẩm mới:</strong> Bấm "Thêm sản phẩm", nhập tên, chọn loại, nhập giá bán, đường dẫn ảnh, số lượng và bấm "Lưu".</li>
+                        <li><strong>Chỉnh sửa sản phẩm:</strong> Bấm nút "Sửa" trên dòng sản phẩm, cập nhật thông tin trong Modal và bấm "Cập nhật".</li>
+                        <li><strong>Xóa sản phẩm:</strong> Bấm nút "Xóa", xác nhận qua hộp thoại Confirm.</li>
+                    </ul>
+                </div>
+                <div class="flow-step">4. Hệ thống cập nhật dữ liệu vào LocalStorage và tự động tải lại bảng sản phẩm ngay tức thì.</div>
+            </td>
+        </tr>
+        <tr>
+            <th>Luồng ngoại lệ</th>
+            <td>
+                <div class="flow-step"><strong>3a. Nhập giá hoặc số lượng âm/không phải số:</strong> Hệ thống báo lỗi "Giá sản phẩm và số lượng phải là số nguyên dương!".</div>
+                <div class="flow-step"><strong>3b. Người dùng hủy bỏ thao tác xóa:</strong> Hệ thống đóng hộp thoại, không thực hiện thay đổi dữ liệu.</div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- UC12 & UC13: QUẢN LÝ ĐƠN HÀNG ADMIN -->
+    <h3>6. Đặc Tả UC12 &amp; UC13: Quản Lý &amp; Cập Nhật Trạng Thái Đơn Hàng</h3>
+    <table class="uc-spec-table">
+        <tr>
+            <th>Mã Use Case</th>
+            <td><strong>UC12 &amp; UC13</strong></td>
+        </tr>
+        <tr>
+            <th>Tên Use Case</th>
+            <td><strong>Quản lý đơn hàng &amp; Cập nhật trạng thái</strong></td>
+        </tr>
+        <tr>
+            <th>Tác nhân (Actor)</th>
+            <td>Quản trị viên (Admin)</td>
+        </tr>
+        <tr>
+            <th>Quan hệ</th>
+            <td>UC12 <span class="tag-include">&lt;&lt;include&gt;&gt; UC13 (Cập nhật trạng thái)</span></td>
+        </tr>
+        <tr>
+            <th>Tiền điều kiện</th>
+            <td>Admin đã đăng nhập và hệ thống có các đơn hàng do khách đã đặt.</td>
+        </tr>
+        <tr>
+            <th>Hậu điều kiện</th>
+            <td>Trạng thái đơn hàng trong <code>techzone_orders</code> được thay đổi (Ví dụ: Chờ xác nhận ➔ Đang giao ➔ Hoàn thành).</td>
+        </tr>
+        <tr>
+            <th>Luồng sự kiện chính (Basic Flow)</th>
+            <td>
+                <div class="flow-step">1. Admin truy cập tab "Quản lý đơn hàng" trong trang quản trị.</div>
+                <div class="flow-step">2. Hệ thống hiển thị bảng danh sách toàn bộ đơn hàng: Mã đơn, Khách hàng, Số điện thoại, Tổng tiền, Ngày đặt, Trạng thái.</div>
+                <div class="flow-step">3. Admin chọn một đơn hàng để xem chi tiết danh sách các sản phẩm và số lượng khách đã mua.</div>
+                <div class="flow-step">4. Admin nhấp vào hộp chọn (Select/Dropdown) trạng thái đơn hàng để chuyển đổi:
+                    <ul>
+                        <li>Chờ xác nhận (Pending)</li>
+                        <li>Đang xử lý / Đóng gói (Processing)</li>
+                        <li>Đang giao hàng (Shipping)</li>
+                        <li>Giao hàng thành công (Completed)</li>
+                        <li>Đã hủy (Cancelled)</li>
+                    </ul>
+                </div>
+                <div class="flow-step">5. Hệ thống lưu trạng thái mới vào LocalStorage và hiển thị thông báo "Cập nhật trạng thái đơn hàng thành công!". Khách hàng khi vào mục "Xem lịch sử đơn" sẽ thấy ngay trạng thái mới.</div>
+            </td>
+        </tr>
+        <tr>
+            <th>Luồng ngoại lệ</th>
+            <td>
+                <div class="flow-step"><strong>4a. Đơn hàng đã Hoàn thành:</strong> Hệ thống cảnh báo nếu Admin muốn đổi ngược lại trạng thái trước đó.</div>
+            </td>
+        </tr>
+    </table>
+
+    <div style="margin-top: 50px; text-align: center; border-top: 1px solid #ccc; padding-top: 20px; font-size: 13px; color: #666;">
+        Hệ thống TECHZONE &bull; Tài liệu đặc tả ca sử dụng chuẩn công nghệ phần mềm UML/RUP &bull; Báo cáo học phần JavaScript
+    </div>
+</div>
+
+</body>
+</html>

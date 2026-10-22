@@ -4,49 +4,519 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập - TECHZONE</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        .auth-container { max-width: 400px; margin: 60px auto; background: white; padding: 40px; border-radius: var(--radius); box-shadow: var(--shadow); }
-        .auth-container h2 { text-align: center; margin-bottom: 30px; color: var(--dark-color); }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; }
-        .form-group input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 4px; font-family: inherit; transition: var(--transition); }
-        .form-group input:focus { border-color: var(--primary-color); outline: none; }
-        .error-msg { color: var(--danger); font-size: 12px; margin-top: 5px; display: none; }
-        .btn-auth { width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; transition: var(--transition); font-size: 16px; margin-top: 10px; }
-        .btn-auth:hover { background: #0056b3; }
-        .auth-link { display: block; text-align: center; margin-top: 20px; color: var(--primary-color); font-size: 14px; }
-        .auth-link:hover { text-decoration: underline; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            background: #0f172a;
+        }
+
+        /* ===== LEFT PANEL ===== */
+        .auth-left {
+            flex: 1;
+            background: linear-gradient(145deg, #0f172a 0%, #1e3a5f 40%, #0f3460 70%, #007bff22 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 56px;
+            overflow: hidden;
+        }
+
+        /* Animated orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: float 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        .orb-1 { width: 350px; height: 350px; background: rgba(0,123,255,0.25); top: -80px; right: -60px; animation-delay: 0s; }
+        .orb-2 { width: 250px; height: 250px; background: rgba(96,165,250,0.15); bottom: 60px; left: -40px; animation-delay: 3s; }
+        .orb-3 { width: 180px; height: 180px; background: rgba(34,197,94,0.12); bottom: 200px; right: 40px; animation-delay: 5s; }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(15px, -20px) scale(1.05); }
+            66% { transform: translate(-10px, 10px) scale(0.97); }
+        }
+
+        /* Grid dots */
+        .auth-left::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none;
+        }
+
+        .left-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 56px;
+            position: relative;
+            z-index: 1;
+        }
+        .left-brand .bolt { font-size: 28px; color: #f59e0b; }
+        .left-brand .brand-text {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+        .left-brand .brand-text span { color: #007bff; }
+        .left-brand .brand-text em { color: #fff; font-style: normal; }
+
+        .left-headline {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 28px;
+        }
+        .left-headline h1 {
+            font-size: 40px;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 14px;
+        }
+        .left-headline h1 .accent {
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .left-headline p { color: rgba(255,255,255,0.6); font-size: 15px; line-height: 1.7; max-width: 380px; }
+
+        .left-features {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 44px;
+            position: relative;
+            z-index: 1;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: rgba(255,255,255,0.8);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .feature-icon {
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        /* Demo account card */
+        .demo-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 16px;
+            padding: 18px 20px;
+            backdrop-filter: blur(10px);
+        }
+        .demo-card-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .demo-accounts { display: flex; flex-direction: column; gap: 8px; }
+        .demo-acc {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.75);
+            cursor: pointer;
+            padding: 8px 10px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .demo-acc:hover { background: rgba(255,255,255,0.08); }
+        .demo-acc-role {
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-left: auto;
+        }
+        .role-admin { background: rgba(245,158,11,0.2); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+        .role-user  { background: rgba(96,165,250,0.2); color: #60a5fa; border: 1px solid rgba(96,165,250,0.3); }
+        .demo-acc i { width: 16px; text-align: center; }
+
+        /* ===== RIGHT PANEL ===== */
+        .auth-right {
+            width: 480px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 48px;
+        }
+
+        .auth-form-wrap { width: 100%; max-width: 380px; }
+
+        .form-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 36px;
+        }
+        .form-logo .bolt { font-size: 22px; color: #f59e0b; }
+        .form-logo span { font-size: 22px; font-weight: 900; }
+        .form-logo span em { color: #007bff; font-style: normal; }
+
+        .form-title { font-size: 28px; font-weight: 800; color: #1a1a2e; margin-bottom: 6px; }
+        .form-subtitle { font-size: 14px; color: #888; margin-bottom: 32px; }
+
+        /* Input groups */
+        .inp-group { margin-bottom: 18px; position: relative; }
+        .inp-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 7px;
+        }
+        .inp-wrap { position: relative; }
+        .inp-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            font-size: 14px;
+            pointer-events: none;
+            transition: color 0.2s;
+        }
+        .inp-wrap input {
+            width: 100%;
+            padding: 13px 44px 13px 42px;
+            border: 2px solid #e8eef8;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: #333;
+            background: #fafbff;
+            transition: all 0.25s ease;
+            outline: none;
+        }
+        .inp-wrap input:focus {
+            border-color: #007bff;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(0,123,255,0.08);
+        }
+        .inp-wrap input:focus + .inp-icon-left { display: none; }
+        .inp-wrap:focus-within .inp-icon { color: #007bff; }
+
+        /* Password toggle */
+        .inp-toggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #aaa;
+            font-size: 14px;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+        .inp-toggle:hover { color: #007bff; }
+
+        /* Error messages */
+        .err-msg {
+            display: none;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: #e53935;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+        .err-msg i { font-size: 11px; }
+        .err-global {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            background: #fff5f5;
+            border: 1px solid #fca5a5;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 13px;
+            color: #e53935;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        /* Remember + Forgot */
+        .form-row-opt {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            font-size: 13px;
+        }
+        .remember-wrap { display: flex; align-items: center; gap: 7px; cursor: pointer; color: #555; }
+        .remember-wrap input { accent-color: #007bff; width: 15px; height: 15px; }
+        .forgot-link { color: #007bff; font-weight: 600; text-decoration: none; }
+        .forgot-link:hover { text-decoration: underline; }
+
+        /* Submit button */
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #007bff, #0056d2);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0,123,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.3px;
+        }
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.5s;
+        }
+        .btn-login:hover::before { left: 100%; }
+        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,123,255,0.4); }
+        .btn-login:active { transform: translateY(0); }
+
+        /* Divider */
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0;
+            color: #ccc;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .auth-divider::before, .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e8eef8;
+        }
+
+        /* Register link */
+        .register-link-wrap {
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+            margin-top: 4px;
+        }
+        .register-link-wrap a {
+            color: #007bff;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .register-link-wrap a:hover { text-decoration: underline; }
+
+        /* Animated input on error */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+        .input-error { animation: shake 0.4s ease; border-color: #e53935 !important; }
+
+        /* Loading state */
+        .btn-login.loading { pointer-events: none; opacity: 0.85; }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="container header-container">
-            <div class="logo"><a href="index.html" style="margin: 0 auto;">TECH<span>ZONE</span></a></div>
-        </div>
-    </header>
 
-    <div class="container">
-        <div class="auth-container">
-            <h2>ĐĂNG NHẬP</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>Email / Số điện thoại</label>
-                    <input type="text" id="loginUsername" placeholder="Nhập email hoặc số điện thoại">
-                    <div class="error-msg" id="errLoginUsername">Vui lòng nhập trường này</div>
+    <!-- Left panel -->
+    <div class="auth-left">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+
+        <div class="left-brand">
+            <span class="bolt">⚡</span>
+            <div class="brand-text"><em>TECH</em><span>ZONE</span></div>
+        </div>
+
+        <div class="left-headline">
+            <h1>Chào mừng<br>trở lại <span class="accent">TechZone!</span></h1>
+            <p>Nền tảng mua sắm phụ kiện công nghệ hàng đầu — chính hãng, giá tốt, giao nhanh toàn quốc.</p>
+        </div>
+
+        <div class="left-features">
+            <div class="feature-item">
+                <div class="feature-icon">🛡️</div>
+                Bảo hành chính hãng 12–24 tháng
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🚚</div>
+                Miễn phí vận chuyển toàn quốc
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">↩️</div>
+                Đổi trả dễ dàng trong 30 ngày
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">💬</div>
+                Hỗ trợ khách hàng 24/7
+            </div>
+        </div>
+
+        <div class="demo-card">
+            <div class="demo-card-title">🔑 Tài khoản demo — click để điền</div>
+            <div class="demo-accounts">
+                <div class="demo-acc" onclick="fillDemo('admin@techzone.com','123456')">
+                    <i class="fas fa-crown" style="color:#f59e0b"></i>
+                    admin@techzone.com &nbsp;/&nbsp; 123456
+                    <span class="demo-acc-role role-admin">Admin</span>
                 </div>
-                <div class="form-group">
-                    <label>Mật khẩu</label>
-                    <input type="password" id="loginPassword" placeholder="Nhập mật khẩu">
-                    <div class="error-msg" id="errLoginPassword">Vui lòng nhập mật khẩu</div>
+                <div class="demo-acc" onclick="fillDemo('user@techzone.com','123456')">
+                    <i class="fas fa-user" style="color:#60a5fa"></i>
+                    user@techzone.com &nbsp;/&nbsp; 123456
+                    <span class="demo-acc-role role-user">User</span>
                 </div>
-                <div id="loginGlobalError" class="error-msg" style="text-align: center; margin-bottom: 15px; font-size: 14px;">Tài khoản hoặc mật khẩu không đúng!</div>
-                <button type="submit" class="btn-auth">ĐĂNG NHẬP</button>
-            </form>
-            <a href="register.html" class="auth-link">Chưa có tài khoản? Đăng ký ngay</a>
+            </div>
         </div>
     </div>
 
+    <!-- Right panel: form -->
+    <div class="auth-right">
+        <div class="auth-form-wrap">
+            <div class="form-logo">
+                <span class="bolt">⚡</span>
+                <span><em style="font-style:normal;color:#1a1a2e">TECH</em><em style="font-style:normal;color:#007bff">ZONE</em></span>
+            </div>
+
+            <h2 class="form-title">Đăng nhập</h2>
+            <p class="form-subtitle">Nhập thông tin tài khoản của bạn để tiếp tục</p>
+
+            <!-- Global error -->
+            <div class="err-global" id="loginGlobalError">
+                <i class="fas fa-exclamation-circle"></i>
+                Tài khoản hoặc mật khẩu không đúng!
+            </div>
+
+            <form id="loginForm" autocomplete="on">
+                <!-- Email/SĐT -->
+                <div class="inp-group">
+                    <label class="inp-label" for="loginUsername">
+                        Email / Số điện thoại
+                    </label>
+                    <div class="inp-wrap">
+                        <i class="fas fa-envelope inp-icon"></i>
+                        <input type="text" id="loginUsername" placeholder="Nhập email hoặc số điện thoại" autocomplete="username">
+                        <div class="err-msg" id="errLoginUsername"><i class="fas fa-circle-exclamation"></i> Vui lòng nhập email/SĐT</div>
+                    </div>
+                </div>
+
+                <!-- Mật khẩu -->
+                <div class="inp-group">
+                    <label class="inp-label" for="loginPassword">Mật khẩu</label>
+                    <div class="inp-wrap">
+                        <i class="fas fa-lock inp-icon"></i>
+                        <input type="password" id="loginPassword" placeholder="Nhập mật khẩu" autocomplete="current-password">
+                        <button type="button" class="inp-toggle" id="togglePwd" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="eyeIcon"></i>
+                        </button>
+                    </div>
+                    <div class="err-msg" id="errLoginPassword"><i class="fas fa-circle-exclamation"></i> Vui lòng nhập mật khẩu</div>
+                </div>
+
+                <!-- Remember + Forgot -->
+                <div class="form-row-opt">
+                    <label class="remember-wrap">
+                        <input type="checkbox" id="rememberMe"> Ghi nhớ đăng nhập
+                    </label>
+                    <a href="#" class="forgot-link">Quên mật khẩu?</a>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn-login" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Đăng nhập
+                </button>
+            </form>
+
+            <div class="auth-divider">hoặc</div>
+
+            <div class="register-link-wrap">
+                Chưa có tài khoản?
+                <a href="register.html">Đăng ký ngay →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Toggle password visibility
+    function togglePassword() {
+        const pwd = document.getElementById('loginPassword');
+        const icon = document.getElementById('eyeIcon');
+        if (pwd.type === 'password') {
+            pwd.type = 'text';
+            icon.className = 'fas fa-eye-slash';
+        } else {
+            pwd.type = 'password';
+            icon.className = 'fas fa-eye';
+        }
+    }
+
+    // Fill demo account
+    function fillDemo(email, pass) {
+        document.getElementById('loginUsername').value = email;
+        document.getElementById('loginPassword').value = pass;
+        document.getElementById('loginUsername').dispatchEvent(new Event('input'));
+        document.getElementById('loginPassword').dispatchEvent(new Event('input'));
+        // Flash effect
+        [document.getElementById('loginUsername'), document.getElementById('loginPassword')].forEach(el => {
+            el.style.borderColor = '#22c55e';
+            el.style.background = '#f0fdf4';
+            setTimeout(() => { el.style.borderColor = ''; el.style.background = ''; }, 800);
+        });
+    }
+
+    // Clear errors on input
+    document.addEventListener('DOMContentLoaded', () => {
+        ['loginUsername','loginPassword'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', () => {
+                el.classList.remove('input-error');
+                document.getElementById('loginGlobalError').style.display = 'none';
+            });
+        });
+    });
+    </script>
     <script src="js/auth.js"></script>
 </body>
 </html>

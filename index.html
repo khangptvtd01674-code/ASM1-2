@@ -6,10 +6,467 @@
     <title>TECHZONE - Cửa hàng thiết bị điện tử</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== HERO BANNER ===== */
+        .hero-section {
+            position: relative;
+            height: 520px;
+            overflow: hidden;
+            background: #0f172a;
+        }
+        .hero-slides-wrapper {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: scale(1.04);
+            pointer-events: none;
+        }
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+        .hero-slide::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(15,23,42,0.88) 0%, rgba(15,23,42,0.65) 50%, rgba(15,23,42,0.2) 100%);
+        }
+        .hero-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            z-index: 5;
+            padding: 0 80px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .hero-text {
+            max-width: 680px;
+            z-index: 2;
+        }
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0,123,255,0.25);
+            border: 1px solid rgba(96,165,250,0.4);
+            color: #60a5fa;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(8px);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            animation: fadeInUp 0.5s ease both;
+        }
+        .hero-title {
+            font-size: 46px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.18;
+            margin-bottom: 14px;
+            letter-spacing: -0.8px;
+            animation: fadeInUp 0.5s ease 0.1s both;
+        }
+        .hero-title .accent {
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-desc {
+            font-size: 15px;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.7;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.5s ease 0.2s both;
+        }
+        .hero-btns {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.5s ease 0.3s both;
+        }
+        .hero-btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 28px;
+            background: linear-gradient(135deg, #007bff, #0056d2);
+            color: #fff;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 14.5px;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(0,123,255,0.45);
+            transition: all 0.25s;
+            border: none;
+            cursor: pointer;
+        }
+        .hero-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0,123,255,0.6);
+        }
+        .hero-btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 24px;
+            border: 2px solid rgba(255,255,255,0.3);
+            color: #fff;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 14.5px;
+            text-decoration: none;
+            transition: all 0.25s;
+            backdrop-filter: blur(8px);
+        }
+        .hero-btn-outline:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        /* Hero stats under buttons */
+        .hero-stats-row {
+            display: flex;
+            gap: 12px;
+            animation: fadeInUp 0.5s ease 0.4s both;
+        }
+        .hero-stat-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            backdrop-filter: blur(8px);
+            padding: 8px 14px;
+            border-radius: 12px;
+        }
+        .hero-stat-pill strong {
+            font-size: 16px;
+            color: #fff;
+            font-weight: 800;
+        }
+        .hero-stat-pill span {
+            font-size: 12px;
+            color: rgba(255,255,255,0.65);
+        }
+
+
+        .hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+        /* Slider controls */
+        .hero-controls {
+            position: absolute;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 6;
+        }
+        .hero-dot {
+            width: 8px; height: 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        .hero-dot.active { background: #007bff; width: 28px; }
+        .hero-prev, .hero-next {
+            position: absolute;
+            top: 50%; transform: translateY(-50%);
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 6;
+            backdrop-filter: blur(8px);
+            transition: all 0.25s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hero-prev:hover, .hero-next:hover { background: #007bff; border-color: #007bff; }
+        .hero-prev { left: 24px; }
+        .hero-next { right: 24px; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== TRUST BAR ===== */
+        .trust-bar {
+            background: #fff;
+            border-bottom: 1px solid #f0f4ff;
+            padding: 0;
+        }
+        .trust-bar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 16px 0;
+            gap: 20px;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: #555;
+            font-weight: 500;
+            flex: 1;
+            justify-content: center;
+        }
+        .trust-item i {
+            font-size: 20px;
+            color: #007bff;
+        }
+        .trust-item strong { color: #1a1a2e; font-weight: 700; display: block; font-size: 13.5px; }
+        .trust-item span { font-size: 12px; color: #888; }
+        .trust-divider { width: 1px; height: 40px; background: #f0f4ff; }
+
+        /* ===== CATEGORIES ===== */
+        .categories-section { margin: 40px auto; }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 14px;
+        }
+        .category-card {
+            background: #fff;
+            border: 1.5px solid #f0f4ff;
+            border-radius: 18px;
+            padding: 20px 12px 16px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.25s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+        .category-card:hover {
+            border-color: #007bff;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px rgba(0,123,255,0.12);
+        }
+        .category-card:hover .cat-icon { background: linear-gradient(135deg, #007bff, #0056d2); color: #fff; }
+        .cat-icon {
+            width: 52px; height: 52px;
+            border-radius: 16px;
+            background: #f0f7ff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+            transition: all 0.25s;
+            color: #007bff;
+        }
+        .cat-name { font-size: 12px; font-weight: 700; color: #333; }
+        .cat-count { font-size: 11px; color: #aaa; }
+
+        /* ===== SECTION HEADER MODERN ===== */
+        .section-header-modern {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .section-left { display: flex; align-items: center; gap: 14px; }
+        .section-icon-box {
+            width: 48px; height: 48px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        .section-title-wrap h2 {
+            font-size: 21px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 2px;
+        }
+        .section-title-wrap p { font-size: 13px; color: #999; }
+        .btn-view-all {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 20px;
+            border: 1.5px solid #c7deff;
+            border-radius: 20px;
+            color: #007bff;
+            font-weight: 600;
+            font-size: 13.5px;
+            background: #f0f7ff;
+            text-decoration: none;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .btn-view-all:hover { background: #007bff; color: #fff; border-color: #007bff; }
+
+        /* ===== FLASH SALE override ===== */
+        .flash-sale-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1a2a50 50%, #0f3460 100%);
+            border-radius: 24px;
+            padding: 36px 40px;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            margin: 64px auto;
+        }
+        .flash-sale-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+        .flash-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            pointer-events: none;
+        }
+        .flash-orb-1 { width: 300px; height: 300px; background: rgba(0,123,255,0.2); top: -80px; right: -60px; }
+        .flash-orb-2 { width: 200px; height: 200px; background: rgba(245,158,11,0.15); bottom: -40px; left: 200px; }
+        .flash-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .flash-title-wrap { display: flex; align-items: center; gap: 14px; }
+        .flash-badge {
+            background: linear-gradient(135deg, #e53935, #c62828);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(229,57,53,0.4);
+            letter-spacing: 0.5px;
+        }
+        .flash-title { font-size: 22px; font-weight: 800; color: #fff; }
+        .flash-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+        .countdown-new {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .time-unit {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 8px 14px;
+            text-align: center;
+            min-width: 58px;
+            backdrop-filter: blur(8px);
+        }
+        .time-num { font-size: 24px; font-weight: 800; color: #fff; display: block; line-height: 1; }
+        .time-label { font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 3px; display: block; }
+        .time-colon { font-size: 22px; font-weight: 800; color: #f59e0b; }
+
+        /* Flash sale product cards - override */
+        .flash-sale-section .product-card {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.1);
+        }
+        .flash-sale-section .product-card-img-wrap {
+            background: rgba(255,255,255,0.08);
+        }
+        .flash-sale-section .product-name { color: #fff; }
+        .flash-sale-section .product-rating { color: #f59e0b; }
+        .flash-sale-section .product-old-price { color: rgba(255,255,255,0.35); }
+        .flash-sale-section .btn-outline {
+            border-color: rgba(255,255,255,0.3);
+            color: #fff;
+            background: rgba(255,255,255,0.08);
+        }
+        .flash-sale-section .btn-outline:hover { background: rgba(255,255,255,0.2); border-color: #fff; }
+        .flash-sale-section .product-card:hover { border-color: rgba(255,255,255,0.4); }
+
+        /* ===== PROMO BANNER ===== */
+        .promo-banners {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin: 64px auto;
+        }
+        .promo-card {
+            border-radius: 20px;
+            padding: 32px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            min-height: 140px;
+        }
+        .promo-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .promo-card:hover::before { opacity: 1; }
+        .promo-card:hover { transform: translateY(-4px); }
+        .promo-card-1 {
+            background: linear-gradient(135deg, #1e3a5f, #0f3460);
+            box-shadow: 0 8px 32px rgba(15,52,96,0.3);
+        }
+        .promo-card-2 {
+            background: linear-gradient(135deg, #1a1a0a, #2d2d00);
+            box-shadow: 0 8px 32px rgba(245,158,11,0.2);
+        }
+        .promo-card-2::after {
+            content: '';
+            position: absolute;
+            top: -20px; right: -20px;
+            width: 100px; height: 100px;
+            background: rgba(245,158,11,0.15);
+            border-radius: 50%;
+            filter: blur(30px);
+        }
+        .promo-icon { font-size: 48px; flex-shrink: 0; position: relative; z-index: 1; }
+        .promo-text { position: relative; z-index: 1; }
+        .promo-text h3 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+        .promo-text p  { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+        .promo-text span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #60a5fa;
+        }
+        .promo-card-2 .promo-text span { color: #f59e0b; }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -18,13 +475,11 @@
             <div class="logo">
                 <a href="index.html">TECH<span>ZONE</span></a>
             </div>
-            
             <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm...">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm công nghệ...">
                 <button id="searchBtn"><i class="fas fa-search"></i></button>
                 <div id="searchResults" class="search-results"></div>
             </div>
-
             <div class="header-actions">
                 <a href="login.html" class="action-btn" id="userBtn">
                     <i class="far fa-user"></i>
@@ -37,85 +492,212 @@
                 </a>
             </div>
         </div>
-        
-        <!-- Navigation -->
         <nav class="navbar">
             <div class="container">
                 <ul class="nav-links">
-                    <li><a href="index.html" class="active">Trang chủ</a></li>
-                    <li><a href="products.html?category=mouse_keyboard">Chuột & Phím</a></li>
-                    <li><a href="products.html?category=charger_cable">Cáp Sạc</a></li>
-                    <li><a href="products.html?category=audio">Âm thanh</a></li>
-                    <li><a href="products.html?category=bag">Balo Túi</a></li>
-                    <li><a href="products.html?category=other">Phụ kiện khác</a></li>
+                    <li><a href="index.html" class="active">🏠 Trang chủ</a></li>
+                    <li><a href="products.html?category=mouse_keyboard">🖱️ Chuột & Phím</a></li>
+                    <li><a href="products.html?category=charger_cable">🔌 Cáp Sạc</a></li>
+                    <li><a href="products.html?category=audio">🎧 Âm thanh</a></li>
+                    <li><a href="products.html?category=bag">🎒 Balo Túi</a></li>
+                    <li><a href="products.html?category=other">📦 Phụ kiện</a></li>
                     <li><a href="products.html?sale=true" class="sale-link">Khuyến mãi</a></li>
                 </ul>
             </div>
         </nav>
     </header>
 
-    <!-- Slider / Banner -->
-    <section class="banner-slider">
-        <div class="slider-container" id="sliderContainer">
-            <!-- Slides will be generated by JS -->
+    <!-- ===== HERO BANNER ===== -->
+    <section class="hero-section" id="heroSection">
+        <div class="hero-slides-wrapper" id="heroSlidesWrapper">
+            <div class="hero-slide active" style="background-image: url('images/banner_1.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('images/banner_2.jpg');"></div>
+            <div class="hero-slide" style="background-image: url('images/banner_3.png');"></div>
         </div>
-        <button class="slider-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-        <button class="slider-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
-        <div class="slider-dots" id="sliderDots"></div>
+
+        <button class="hero-prev" id="heroPrev" aria-label="Slide trước"><i class="fas fa-chevron-left"></i></button>
+        <button class="hero-next" id="heroNext" aria-label="Slide kế tiếp"><i class="fas fa-chevron-right"></i></button>
+
+        <div class="hero-content" id="heroContent">
+            <!-- Content & Visual injected by JS -->
+        </div>
+
+        <div class="hero-controls" id="heroControls"></div>
     </section>
 
-    <!-- Flash Sale Countdown -->
-    <section class="flash-sale container section">
-        <div class="section-header">
-            <h2><i class="fas fa-bolt" style="color: #f1c40f;"></i> FLASH SALE</h2>
-            <div class="countdown" id="countdown">
-                <div class="time-box"><span id="days">00</span><small>Ngày</small></div>
-                <span>:</span>
-                <div class="time-box"><span id="hours">00</span><small>Giờ</small></div>
-                <span>:</span>
-                <div class="time-box"><span id="minutes">00</span><small>Phút</small></div>
-                <span>:</span>
-                <div class="time-box"><span id="seconds">00</span><small>Giây</small></div>
+    <!-- ===== TRUST BAR ===== -->
+    <div class="trust-bar">
+        <div class="container trust-bar-inner">
+            <div class="trust-item">
+                <i class="fas fa-shield-alt"></i>
+                <div><strong>Hàng chính hãng 100%</strong><span>Bảo hành 12-24 tháng</span></div>
+            </div>
+            <div class="trust-divider"></div>
+            <div class="trust-item">
+                <i class="fas fa-truck-fast"></i>
+                <div><strong>Giao hàng nhanh</strong><span>Toàn quốc 1-3 ngày</span></div>
+            </div>
+            <div class="trust-divider"></div>
+            <div class="trust-item">
+                <i class="fas fa-rotate-left"></i>
+                <div><strong>Đổi trả 30 ngày</strong><span>Không cần lý do</span></div>
+            </div>
+            <div class="trust-divider"></div>
+            <div class="trust-item">
+                <i class="fas fa-headset"></i>
+                <div><strong>Hỗ trợ 24/7</strong><span>Tư vấn miễn phí</span></div>
+            </div>
+            <div class="trust-divider"></div>
+            <div class="trust-item">
+                <i class="fas fa-credit-card"></i>
+                <div><strong>Thanh toán đa dạng</strong><span>COD · MoMo · Chuyển khoản</span></div>
             </div>
         </div>
-        <div class="product-grid" id="flashSaleProducts">
-            <!-- Products injected by JS -->
+    </div>
+
+    <!-- ===== CATEGORIES ===== -->
+    <section class="container categories-section">
+        <div class="section-header-modern" style="margin-bottom:20px">
+            <div class="section-left">
+                <div class="section-icon-box" style="background:linear-gradient(135deg,#007bff,#0056d2);color:#fff">
+                    <i class="fas fa-th-large"></i>
+                </div>
+                <div class="section-title-wrap">
+                    <h2>Danh mục sản phẩm</h2>
+                    <p>Khám phá theo danh mục yêu thích</p>
+                </div>
+            </div>
+            <a href="products.html" class="btn-view-all">Tất cả <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="category-grid">
+            <a href="products.html?category=mouse_keyboard" class="category-card">
+                <div class="cat-icon"><i class="fas fa-keyboard"></i></div>
+                <div class="cat-name">Chuột & Phím</div>
+                <div class="cat-count">120+ sp</div>
+            </a>
+            <a href="products.html?category=charger_cable" class="category-card">
+                <div class="cat-icon"><i class="fas fa-plug"></i></div>
+                <div class="cat-name">Cáp Sạc</div>
+                <div class="cat-count">80+ sp</div>
+            </a>
+            <a href="products.html?category=audio" class="category-card">
+                <div class="cat-icon"><i class="fas fa-headphones-alt"></i></div>
+                <div class="cat-name">Âm thanh</div>
+                <div class="cat-count">95+ sp</div>
+            </a>
+            <a href="products.html?category=bag" class="category-card">
+                <div class="cat-icon"><i class="fas fa-briefcase"></i></div>
+                <div class="cat-name">Balo Túi</div>
+                <div class="cat-count">60+ sp</div>
+            </a>
+            <a href="products.html?category=other" class="category-card">
+                <div class="cat-icon"><i class="fas fa-microchip"></i></div>
+                <div class="cat-name">Phụ kiện</div>
+                <div class="cat-count">150+ sp</div>
+            </a>
+            <a href="products.html?sale=true" class="category-card" style="border-color:#fcd34d">
+                <div class="cat-icon" style="background:#fff8e7;color:#d97706"><i class="fas fa-fire"></i></div>
+                <div class="cat-name" style="color:#d97706">Khuyến mãi</div>
+                <div class="cat-count">HOT 🔥</div>
+            </a>
         </div>
     </section>
 
-    <!-- New Products -->
-    <section class="new-products container section">
-        <div class="section-header">
-            <h2>SẢN PHẨM MỚI</h2>
-            <a href="products.html?new=true" class="view-all">Xem tất cả <i class="fas fa-arrow-right"></i></a>
-        </div>
-        <div class="product-grid" id="newProducts">
-            <!-- Products injected by JS -->
+    <!-- ===== FLASH SALE ===== -->
+    <section class="container">
+        <div class="flash-sale-section">
+            <div class="flash-orb flash-orb-1"></div>
+            <div class="flash-orb flash-orb-2"></div>
+
+            <div class="flash-header">
+                <div class="flash-title-wrap">
+                    <div class="flash-badge"><i class="fas fa-bolt"></i> FLASH SALE</div>
+                    <div>
+                        <div class="flash-title">Ưu đãi cực sốc hôm nay</div>
+                        <div class="flash-sub">Giảm giá đến 50% · Số lượng có hạn</div>
+                    </div>
+                </div>
+                <div class="countdown-new" id="countdown">
+                    <div class="time-unit"><span class="time-num" id="days">00</span><span class="time-label">Ngày</span></div>
+                    <span class="time-colon">:</span>
+                    <div class="time-unit"><span class="time-num" id="hours">00</span><span class="time-label">Giờ</span></div>
+                    <span class="time-colon">:</span>
+                    <div class="time-unit"><span class="time-num" id="minutes">00</span><span class="time-label">Phút</span></div>
+                    <span class="time-colon">:</span>
+                    <div class="time-unit"><span class="time-num" id="seconds">00</span><span class="time-label">Giây</span></div>
+                </div>
+            </div>
+
+            <div class="product-grid" id="flashSaleProducts"></div>
         </div>
     </section>
 
-    <!-- Best Sellers -->
-    <section class="best-sellers container section">
-        <div class="section-header">
-            <h2>SẢN PHẨM BÁN CHẠY</h2>
-            <a href="products.html" class="view-all">Xem tất cả <i class="fas fa-arrow-right"></i></a>
-        </div>
-        <div class="product-grid" id="bestSellerProducts">
-            <!-- Products injected by JS -->
-        </div>
+    <!-- ===== PROMO BANNERS ===== -->
+    <section class="container promo-banners">
+        <a href="products.html?new=true" class="promo-card promo-card-1">
+            <div class="promo-icon">🖥️</div>
+            <div class="promo-text">
+                <h3>Sản phẩm mới nhất 2026</h3>
+                <p>Cập nhật công nghệ hàng đầu thế giới</p>
+                <span>Khám phá ngay <i class="fas fa-arrow-right"></i></span>
+            </div>
+        </a>
+        <a href="products.html?sale=true" class="promo-card promo-card-2">
+            <div class="promo-icon">⚡</div>
+            <div class="promo-text">
+                <h3>Deal sốc cuối tuần</h3>
+                <p>Giảm đến 50% cho hàng trăm sản phẩm</p>
+                <span style="color:#f59e0b">Xem ưu đãi <i class="fas fa-arrow-right"></i></span>
+            </div>
+        </a>
     </section>
 
-    <!-- Footer -->
+    <!-- ===== NEW PRODUCTS ===== -->
+    <section class="container section">
+        <div class="section-header-modern">
+            <div class="section-left">
+                <div class="section-icon-box" style="background:linear-gradient(135deg,#22c55e,#15803d);color:#fff">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="section-title-wrap">
+                    <h2>Sản phẩm mới</h2>
+                    <p>Hàng về mới nhất · Chính hãng 100%</p>
+                </div>
+            </div>
+            <a href="products.html?new=true" class="btn-view-all">Xem tất cả <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="product-grid" id="newProducts"></div>
+    </section>
+
+    <!-- ===== BEST SELLERS ===== -->
+    <section class="container section">
+        <div class="section-header-modern">
+            <div class="section-left">
+                <div class="section-icon-box" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="section-title-wrap">
+                    <h2>Bán chạy nhất</h2>
+                    <p>Được khách hàng tin tưởng lựa chọn</p>
+                </div>
+            </div>
+            <a href="products.html" class="btn-view-all">Xem tất cả <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="product-grid" id="bestSellerProducts"></div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container footer-container">
             <div class="footer-col">
-                <h3>Về TECHZONE</h3>
-                <p>TechZone là hệ thống bán lẻ các thiết bị công nghệ chính hãng hàng đầu, mang đến trải nghiệm mua sắm tuyệt vời nhất cho khách hàng.</p>
+                <h3>⚡ TECHZONE</h3>
+                <p>TechZone là hệ thống bán lẻ phụ kiện công nghệ chính hãng hàng đầu Việt Nam — mang đến trải nghiệm mua sắm tuyệt vời nhất.</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
             <div class="footer-col">
@@ -125,6 +707,7 @@
                     <li><a href="#">Chính sách đổi trả</a></li>
                     <li><a href="#">Chính sách bảo hành</a></li>
                     <li><a href="#">Chính sách bảo mật</a></li>
+                    <li><a href="#">Điều khoản sử dụng</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -132,19 +715,123 @@
                 <ul>
                     <li><i class="fas fa-map-marker-alt"></i> 123 Đường Công Nghệ, Quận 1, TP.HCM</li>
                     <li><i class="fas fa-envelope"></i> contact@techzone.vn</li>
-                    <li><i class="fas fa-phone-alt"></i> 1900 1234</li>
+                    <li><i class="fas fa-phone-alt"></i> 1900 1234 (Miễn phí)</li>
+                    <li><i class="fas fa-clock"></i> 8:00 - 22:00 · Tất cả các ngày</li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 TECHZONE. Designed by Antigravity.</p>
+            <p>© 2026 <strong style="color:#60a5fa">TECHZONE</strong>. Tất cả quyền được bảo lưu. Thiết kế bởi Antigravity.</p>
         </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="js/data.js?v=4"></script>
-    <script src="js/main.js?v=4"></script>
-    <script src="js/slider.js?v=4"></script>
-    <script src="js/cart.js?v=4"></script>
+    <script src="js/data.js?v=5"></script>
+    <script src="js/cart.js?v=5"></script>
+    <script>
+    // ===== HERO SLIDER =====
+    const slides = [
+        {
+            tag: '⌨️ KHÔNG GIAN LÀM VIỆC ĐỈNH CAO',
+            title: 'Bàn phím chuột\n<span class="accent">công nghệ đỉnh cao</span>',
+            desc: 'Bàn phím cơ Keychron, chuột công thái học Logitech MX Master 3S chính hãng. Tăng 200% hiệu suất làm việc & giải trí.',
+            btnLink: 'products.html?category=mouse_keyboard',
+            btnText: 'Khám phá ngay'
+        },
+        {
+            tag: '🎧 TRẢI NGHIỆM ÂM THANH SỐNG ĐỘNG',
+            title: 'Âm thanh đỉnh cao\n<span class="accent">chuẩn Hi-Res Audio</span>',
+            desc: 'Tai nghe Sony WH-1000XM5, loa Marshall Emberton II, Apple AirPods Pro 2. Chống ồn chủ động đỉnh cao, âm bass uy lực.',
+            btnLink: 'products.html?category=audio',
+            btnText: 'Mua ngay'
+        },
+        {
+            tag: '⚡ FLASH SALE HÔM NAY',
+            title: 'Ưu đãi cực sốc\n<span class="accent">giảm đến 50%</span>',
+            desc: 'Hàng trăm củ sạc GaN Anker 65W, cáp sạc nhanh Baseus 100W, balo cao cấp giảm giá cực sốc. Mua ngay kẻo lỡ!',
+            btnLink: 'products.html?sale=true',
+            btnText: 'Săn Deal ngay'
+        }
+    ];
+
+    let currentSlide = 0;
+    const heroSlidesWrapper = document.getElementById('heroSlidesWrapper');
+    const slideEls = heroSlidesWrapper ? heroSlidesWrapper.querySelectorAll('.hero-slide') : [];
+    const heroContent = document.getElementById('heroContent');
+    const heroControls = document.getElementById('heroControls');
+
+    function createDots() {
+        if (!heroControls) return;
+        heroControls.innerHTML = '';
+        slides.forEach((_, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'hero-dot' + (i === 0 ? ' active' : '');
+            btn.onclick = () => goTo(i);
+            heroControls.appendChild(btn);
+        });
+    }
+
+    function renderContent(idx) {
+        if (!heroContent) return;
+        const s = slides[idx];
+        heroContent.innerHTML = `
+            <div class="hero-text">
+                <div class="hero-tag">${s.tag}</div>
+                <h1 class="hero-title">${s.title.replace('\n', '<br>')}</h1>
+                <p class="hero-desc">${s.desc}</p>
+                <div class="hero-btns">
+                    <a href="${s.btnLink}" class="hero-btn-primary">
+                        <i class="fas fa-shopping-bag"></i> ${s.btnText}
+                    </a>
+                    <a href="products.html" class="hero-btn-outline">
+                        <i class="fas fa-th-large"></i> Tất cả sản phẩm
+                    </a>
+                </div>
+                <div class="hero-stats-row">
+                    <div class="hero-stat-pill"><strong>500+</strong> <span>Sản phẩm</span></div>
+                    <div class="hero-stat-pill"><strong>10K+</strong> <span>Khách hàng</span></div>
+                    <div class="hero-stat-pill"><strong>4.9★</strong> <span>Đánh giá</span></div>
+                </div>
+            </div>
+        `;
+    }
+
+    function goTo(idx) {
+        if (slideEls.length > 0) {
+            slideEls[currentSlide].classList.remove('active');
+        }
+        const dots = heroControls ? heroControls.querySelectorAll('.hero-dot') : [];
+        if (dots[currentSlide]) dots[currentSlide].classList.remove('active');
+
+        currentSlide = (idx + slides.length) % slides.length;
+
+        if (slideEls.length > 0) {
+            slideEls[currentSlide].classList.add('active');
+        }
+        if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+        renderContent(currentSlide);
+    }
+
+    createDots();
+    renderContent(0);
+
+    const prevBtn = document.getElementById('heroPrev');
+    const nextBtn = document.getElementById('heroNext');
+    if (prevBtn) prevBtn.onclick = () => goTo(currentSlide - 1);
+    if (nextBtn) nextBtn.onclick = () => goTo(currentSlide + 1);
+
+    // Auto-slide every 5s with pause on hover
+    let slideTimer = setInterval(() => goTo(currentSlide + 1), 5000);
+    const heroSection = document.getElementById('heroSection');
+    if (heroSection) {
+        heroSection.addEventListener('mouseenter', () => clearInterval(slideTimer));
+        heroSection.addEventListener('mouseleave', () => {
+            clearInterval(slideTimer);
+            slideTimer = setInterval(() => goTo(currentSlide + 1), 5000);
+        });
+    }
+    </script>
+    <script src="js/main.js?v=5"></script>
+    <script src="js/slider.js?v=5"></script>
 </body>
 </html>

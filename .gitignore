@@ -1,0 +1,7 @@
+# Office temporary files
+~$*
+*.tmp
+
+# PowerShell scratch scripts
+download_product_images.ps1
+fix_images.ps1

@@ -81,18 +81,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ---- COUNTDOWN CLOCK ----
-    const countdownEl = document.getElementById('countdown');
+    const countdownEl = document.getElementById('countdown') || document.getElementById('days');
     if (countdownEl) {
-        // Thiết lập thời gian kết thúc (Ví dụ: 12 tiếng nữa)
-        const endTime = new Date().getTime() + (12 * 60 * 60 * 1000 + 45 * 60 * 1000 + 30 * 1000); // 12h 45m 30s
+        // Thiết lập thời gian kết thúc (12 tiếng nữa)
+        const endTime = new Date().getTime() + (12 * 60 * 60 * 1000 + 45 * 60 * 1000 + 30 * 1000);
         
         const timer = setInterval(() => {
             const now = new Date().getTime();
             const distance = endTime - now;
 
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+
             if (distance < 0) {
                 clearInterval(timer);
-                countdownEl.innerHTML = "<h3 style='color: var(--danger)'>FLASH SALE ĐÃ KẾT THÚC</h3>";
+                const cd = document.getElementById('countdown');
+                if (cd) cd.innerHTML = "<h3 style='color: var(--danger)'>FLASH SALE ĐÃ KẾT THÚC</h3>";
                 return;
             }
 
@@ -101,11 +107,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById('days').innerText = days.toString().padStart(2, '0');
-            document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
-            
+            if (daysEl) daysEl.innerText = days.toString().padStart(2, '0');
+            if (hoursEl) hoursEl.innerText = hours.toString().padStart(2, '0');
+            if (minutesEl) minutesEl.innerText = minutes.toString().padStart(2, '0');
+            if (secondsEl) secondsEl.innerText = seconds.toString().padStart(2, '0');
         }, 1000);
     }
 });

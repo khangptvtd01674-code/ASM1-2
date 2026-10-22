@@ -6,80 +6,313 @@
     <title>Thanh toán - TECHZONE</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/checkout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Header -->
     <header class="header">
         <div class="container header-container">
             <div class="logo"><a href="index.html">TECH<span>ZONE</span></a></div>
+            <div class="checkout-steps">
+                <div class="step done"><span class="step-dot"><i class="fas fa-check"></i></span><span class="step-label">Giỏ hàng</span></div>
+                <div class="step-line done"></div>
+                <div class="step active"><span class="step-dot">2</span><span class="step-label">Thanh toán</span></div>
+                <div class="step-line"></div>
+                <div class="step"><span class="step-dot">3</span><span class="step-label">Hoàn tất</span></div>
+            </div>
+            <a href="cart.html" class="back-shopping">
+                <i class="fas fa-arrow-left"></i> Quay lại giỏ hàng
+            </a>
         </div>
     </header>
 
-    <div class="container section">
-        <h2 style="margin-bottom: 20px;">THANH TOÁN ĐƠN HÀNG</h2>
-        
-        <div class="checkout-layout">
-            <div class="checkout-form-section">
-                <h3>Thông tin giao hàng</h3>
-                <form id="checkoutForm" style="margin-top: 20px;">
-                    <div class="form-group">
-                        <label>Họ và tên *</label>
-                        <input type="text" id="cusName" placeholder="Nhập họ tên">
-                        <div class="error-msg" id="errName">Vui lòng nhập họ tên</div>
-                    </div>
-                    <div class="form-group">
-                        <label>Số điện thoại *</label>
-                        <input type="text" id="cusPhone" placeholder="Nhập số điện thoại">
-                        <div class="error-msg" id="errPhone">Số điện thoại không hợp lệ</div>
-                    </div>
-                    <div class="form-group">
-                        <label>Email *</label>
-                        <input type="email" id="cusEmail" placeholder="Nhập email">
-                        <div class="error-msg" id="errEmail">Email không hợp lệ</div>
-                    </div>
-                    <div class="form-group">
-                        <label>Địa chỉ nhận hàng *</label>
-                        <textarea id="cusAddress" rows="3" placeholder="Nhập địa chỉ chi tiết"></textarea>
-                        <div class="error-msg" id="errAddress">Vui lòng nhập địa chỉ</div>
-                    </div>
+    <div class="checkout-page-wrapper">
+        <div class="container">
 
-                    <h3 style="margin-top: 30px; margin-bottom: 20px;">Phương thức thanh toán</h3>
-                    <div class="payment-methods">
-                        <label>
-                            <input type="radio" name="payment" value="cod" checked> Thanh toán khi nhận hàng (COD)
-                        </label>
-                        <label>
-                            <input type="radio" name="payment" value="bank"> Chuyển khoản qua ngân hàng
-                        </label>
-                    </div>
-
-                    <button type="submit" class="btn-checkout" style="margin-top: 30px; padding: 15px; font-size: 18px;">ĐẶT HÀNG</button>
-                </form>
+            <!-- Page Title -->
+            <div class="checkout-page-title">
+                <h1><i class="fas fa-credit-card"></i> Thanh toán đơn hàng</h1>
+                <p>Vui lòng điền đầy đủ thông tin để hoàn tất đặt hàng</p>
             </div>
 
-            <div class="checkout-summary-section">
-                <h3>Đơn hàng của bạn</h3>
-                <div id="checkoutItems" style="margin-top: 20px; margin-bottom: 20px;">
-                    <!-- Injected by JS -->
+            <div class="checkout-layout">
+                <!-- LEFT: Form -->
+                <div class="checkout-form-section">
+
+                    <!-- Section: Shipping Info -->
+                    <div class="form-section-title">
+                        <div class="form-section-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h3>Thông tin giao hàng</h3>
+                            <p>Chúng tôi sẽ giao hàng đến địa chỉ này</p>
+                        </div>
+                    </div>
+
+                    <form id="checkoutForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cusName"><i class="fas fa-user"></i> Họ và tên <span class="required">*</span></label>
+                                <input type="text" id="cusName" placeholder="Nguyễn Văn A">
+                                <div class="error-msg" id="errName"><i class="fas fa-exclamation-circle"></i> Vui lòng nhập họ tên</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cusPhone"><i class="fas fa-phone"></i> Số điện thoại <span class="required">*</span></label>
+                                <input type="text" id="cusPhone" placeholder="0912 345 678">
+                                <div class="error-msg" id="errPhone"><i class="fas fa-exclamation-circle"></i> Số điện thoại không hợp lệ</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cusEmail"><i class="fas fa-envelope"></i> Email <span class="required">*</span></label>
+                            <input type="email" id="cusEmail" placeholder="example@email.com">
+                            <div class="error-msg" id="errEmail"><i class="fas fa-exclamation-circle"></i> Email không hợp lệ</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cusAddress"><i class="fas fa-home"></i> Địa chỉ nhận hàng <span class="required">*</span></label>
+                            <textarea id="cusAddress" rows="3" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố..."></textarea>
+                            <div class="error-msg" id="errAddress"><i class="fas fa-exclamation-circle"></i> Vui lòng nhập địa chỉ</div>
+                        </div>
+
+                        <!-- Section: Payment -->
+                        <div class="form-section-title" style="margin-top: 32px;">
+                            <div class="form-section-icon" style="background: linear-gradient(135deg,#f59e0b,#d97706)"><i class="fas fa-wallet"></i></div>
+                            <div>
+                                <h3>Phương thức thanh toán</h3>
+                                <p>Chọn hình thức thanh toán phù hợp</p>
+                            </div>
+                        </div>
+
+                        <div class="payment-methods">
+                            <!-- COD -->
+                            <div class="payment-option selected" id="opt-cod" onclick="selectPayment('cod')">
+                                <input type="radio" name="payment" value="cod" checked style="display:none">
+                                <div class="payment-option-content">
+                                    <div class="payment-icon-wrap cod-icon"><i class="fas fa-truck"></i></div>
+                                    <div>
+                                        <div class="payment-name">Thanh toán khi nhận hàng (COD)</div>
+                                        <div class="payment-desc">Trả tiền mặt khi nhận được hàng</div>
+                                    </div>
+                                </div>
+                                <div class="payment-check"><i class="fas fa-check"></i></div>
+                            </div>
+
+                            <!-- Bank Transfer -->
+                            <div class="payment-option" id="opt-bank" onclick="selectPayment('bank')">
+                                <input type="radio" name="payment" value="bank" style="display:none">
+                                <div class="payment-option-content">
+                                    <div class="payment-icon-wrap bank-icon"><i class="fas fa-university"></i></div>
+                                    <div>
+                                        <div class="payment-name">Chuyển khoản ngân hàng</div>
+                                        <div class="payment-desc">Chuyển khoản qua tài khoản ngân hàng</div>
+                                    </div>
+                                </div>
+                                <div class="payment-check"><i class="fas fa-check"></i></div>
+                            </div>
+                            <!-- Bank Info Panel -->
+                            <div class="payment-info-panel" id="bank-info">
+                                <div class="bank-info-header"><i class="fas fa-university"></i> Thông tin chuyển khoản</div>
+                                <div class="bank-info-grid">
+                                    <div class="bank-info-row">
+                                        <span class="bank-label">Ngân hàng</span>
+                                        <span class="bank-value">Vietcombank (VCB)</span>
+                                    </div>
+                                    <div class="bank-info-row">
+                                        <span class="bank-label">Số tài khoản</span>
+                                        <span class="bank-value bank-account" onclick="copyText('1234567890123', this)">1234567890123 <i class="fas fa-copy"></i></span>
+                                    </div>
+                                    <div class="bank-info-row">
+                                        <span class="bank-label">Chủ tài khoản</span>
+                                        <span class="bank-value">CÔNG TY TECHZONE</span>
+                                    </div>
+                                    <div class="bank-info-row">
+                                        <span class="bank-label">Nội dung CK</span>
+                                        <span class="bank-value bank-account" id="bankContent" onclick="copyText(document.getElementById('bankContent').textContent, this)">TECHZONE [Họ tên] <i class="fas fa-copy"></i></span>
+                                    </div>
+                                </div>
+                                <div class="bank-note"><i class="fas fa-info-circle"></i> Đơn hàng sẽ được xử lý sau khi chúng tôi nhận được thanh toán (1–2 giờ làm việc)</div>
+                            </div>
+
+                            <!-- MoMo -->
+                            <div class="payment-option" id="opt-momo" onclick="selectPayment('momo')">
+                                <input type="radio" name="payment" value="momo" style="display:none">
+                                <div class="payment-option-content">
+                                    <div class="payment-icon-wrap momo-icon"><i class="fas fa-mobile-alt"></i></div>
+                                    <div>
+                                        <div class="payment-name">Ví MoMo</div>
+                                        <div class="payment-desc">Thanh toán qua ứng dụng MoMo</div>
+                                    </div>
+                                </div>
+                                <div class="payment-check"><i class="fas fa-check"></i></div>
+                            </div>
+                            <!-- MoMo Info Panel -->
+                            <div class="payment-info-panel" id="momo-info">
+                                <div class="bank-info-header momo-header"><i class="fas fa-mobile-alt"></i> Thông tin thanh toán MoMo</div>
+                                <div class="momo-info-layout">
+                                    <div class="momo-qr-wrap">
+                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=2=00020101021238560010A000000727012800069704220112TECHZONEVN0208QRIBFTTA5303704540850000553037045802VN5908TECHZONE6005HANOI630463DA" alt="MoMo QR" class="momo-qr">
+                                        <div class="momo-qr-label">Quét QR để thanh toán</div>
+                                    </div>
+                                    <div class="momo-details">
+                                        <div class="bank-info-row">
+                                            <span class="bank-label">Số điện thoại</span>
+                                            <span class="bank-value bank-account" onclick="copyText('0912345678', this)">0912 345 678 <i class="fas fa-copy"></i></span>
+                                        </div>
+                                        <div class="bank-info-row">
+                                            <span class="bank-label">Tên tài khoản</span>
+                                            <span class="bank-value">TECHZONE</span>
+                                        </div>
+                                        <div class="bank-info-row">
+                                            <span class="bank-label">Số tiền</span>
+                                            <span class="bank-value" id="momoAmount" style="color:#d63384;font-weight:800">—</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bank-note momo-note"><i class="fas fa-info-circle"></i> Mở app MoMo → Chuyển tiền → nhập SĐT hoặc quét mã QR trên</div>
+                            </div>
+                        </div>
+
+                        <!-- Note -->
+                        <div class="form-group" style="margin-top: 20px;">
+                            <label for="cusNote"><i class="fas fa-sticky-note"></i> Ghi chú đơn hàng <span style="color:#aaa;font-weight:400">(tuỳ chọn)</span></label>
+                            <textarea id="cusNote" rows="2" placeholder="Ghi chú cho người giao hàng..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-place-order" id="placeOrderBtn">
+                            <i class="fas fa-lock"></i>
+                            Đặt hàng ngay
+                            <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
+                        </button>
+
+                        <div class="form-secure-note">
+                            <i class="fas fa-shield-alt"></i>
+                            Thông tin của bạn được mã hoá và bảo mật tuyệt đối
+                        </div>
+                    </form>
                 </div>
-                <div class="summary-row summary-total">
-                    <span>Tổng cộng:</span>
-                    <span id="checkoutTotal">0 đ</span>
+
+                <!-- RIGHT: Order Summary -->
+                <div class="checkout-summary-section">
+                    <div class="co-summary-header">
+                        <i class="fas fa-shopping-bag"></i>
+                        Đơn hàng của bạn
+                        <span class="co-item-badge" id="coItemCount">0 sp</span>
+                    </div>
+
+                    <div class="co-items" id="checkoutItems">
+                        <!-- Injected by JS -->
+                    </div>
+
+                    <div class="co-divider"></div>
+
+                    <div class="co-subtotal-row">
+                        <span>Tạm tính</span>
+                        <span id="coSubtotal">0 đ</span>
+                    </div>
+                    <div class="co-subtotal-row">
+                        <span><i class="fas fa-truck" style="color:#22c55e"></i> Phí vận chuyển</span>
+                        <span class="free-ship">Miễn phí</span>
+                    </div>
+
+                    <div class="co-divider"></div>
+
+                    <div class="co-total-row">
+                        <span>Tổng thanh toán</span>
+                        <span id="checkoutTotal" class="co-total-amount">0 đ</span>
+                    </div>
+
+                    <div class="co-guarantee">
+                        <div class="co-guarantee-item"><i class="fas fa-undo"></i> Đổi trả 30 ngày</div>
+                        <div class="co-guarantee-item"><i class="fas fa-certificate"></i> Hàng chính hãng</div>
+                        <div class="co-guarantee-item"><i class="fas fa-headset"></i> Hỗ trợ 24/7</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal Success -->
-    <div id="successModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
-        <div style="background:white; padding:40px; border-radius:8px; text-align:center; max-width:400px;">
-            <i class="fas fa-check-circle" style="font-size:60px; color:var(--success); margin-bottom:20px;"></i>
-            <h2 style="margin-bottom:10px;">Đặt hàng thành công!</h2>
-            <p style="margin-bottom:20px;">Cảm ơn bạn đã mua sắm tại TECHZONE. Đơn hàng của bạn đang được xử lý.</p>
-            <a href="index.html" class="btn-checkout">Quay về trang chủ</a>
+    <!-- Success Modal -->
+    <div id="successModal" class="success-modal-overlay">
+        <div class="success-modal-card">
+            <div class="success-confetti">
+                <div class="confetti-piece"></div><div class="confetti-piece"></div>
+                <div class="confetti-piece"></div><div class="confetti-piece"></div>
+                <div class="confetti-piece"></div><div class="confetti-piece"></div>
+            </div>
+            <div class="success-icon-wrap">
+                <svg viewBox="0 0 52 52" class="success-svg">
+                    <circle class="success-circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="success-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+            </div>
+            <h2 class="success-title">Đặt hàng thành công!</h2>
+            <p class="success-subtitle">Cảm ơn bạn đã tin tưởng <strong>TECHZONE</strong>.<br>Đơn hàng đang được xử lý và sẽ sớm đến tay bạn!</p>
+            <div class="success-order-id" id="successOrderId"></div>
+            <div class="success-actions">
+                <a href="index.html" class="success-btn-home">
+                    <i class="fas fa-home"></i> Về trang chủ
+                </a>
+                <a href="products.html" class="success-btn-shop">
+                    <i class="fas fa-shopping-bag"></i> Tiếp tục mua
+                </a>
+            </div>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script>
+    // Chọn phương thức thanh toán
+    function selectPayment(method) {
+        // Cập nhật radio input
+        const radio = document.querySelector(`input[name="payment"][value="${method}"]`);
+        if (radio) radio.checked = true;
+
+        // Cập nhật UI
+        document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
+        const opt = document.getElementById('opt-' + method);
+        if (opt) opt.classList.add('selected');
+
+        // Ẩn tất cả panels
+        document.querySelectorAll('.payment-info-panel').forEach(p => {
+            p.style.maxHeight = '0';
+            p.style.opacity  = '0';
+            p.style.marginTop = '0';
+        });
+
+        // Hiện panel tương ứng (bank/momo)
+        if (method === 'bank' || method === 'momo') {
+            const panel = document.getElementById(method + '-info');
+            if (panel) {
+                panel.style.maxHeight = '500px';
+                panel.style.opacity  = '1';
+                panel.style.marginTop = '8px';
+            }
+        }
+
+        // Cập nhật số tiền MoMo
+        if (method === 'momo') {
+            const totalEl = document.getElementById('checkoutTotal');
+            const momoEl  = document.getElementById('momoAmount');
+            if (totalEl && momoEl) momoEl.textContent = totalEl.textContent;
+        }
+    }
+
+    // Copy text vào clipboard
+    function copyText(text, el) {
+        navigator.clipboard.writeText(text.replace(/\s+/g, '')).then(() => {
+            const orig = el.innerHTML;
+            el.innerHTML = el.innerHTML.replace('fa-copy', 'fa-check') + '';
+            el.style.color = '#22c55e';
+            setTimeout(() => { el.innerHTML = orig; el.style.color = ''; }, 1500);
+        });
+    }
+
+    // Khởi tạo
+    document.addEventListener('DOMContentLoaded', () => {
+        selectPayment('cod'); // mặc định COD
+    });
+    </script>
     <script src="js/data.js"></script>
     <script src="js/checkout.js"></script>
 </body>

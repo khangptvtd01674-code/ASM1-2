@@ -6,27 +6,213 @@
     <title>Tài khoản của tôi - TECHZONE</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        .account-layout { display: flex; gap: 30px; margin-top: 30px; margin-bottom: 60px; }
-        .account-sidebar { width: 250px; background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; }
-        .account-nav { list-style: none; }
-        .account-nav li { margin-bottom: 10px; }
-        .account-nav a { display: block; padding: 10px 15px; border-radius: 4px; color: var(--dark-color); transition: var(--transition); }
-        .account-nav a:hover, .account-nav a.active { background: var(--primary-color); color: white; }
-        
-        .account-content { flex: 1; background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 30px; }
-        .account-content h2 { margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-        
-        .info-group { margin-bottom: 15px; }
-        .info-group strong { display: inline-block; width: 120px; color: #555; }
-        
-        .order-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .order-table th, .order-table td { padding: 12px; border: 1px solid var(--border); text-align: left; }
-        .order-table th { background: #f8f9fa; }
-        .status-badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-        .status-pending { background: #f39c12; color: white; }
-        .status-done { background: var(--success); color: white; }
-        .status-cancel { background: var(--danger); color: white; }
+        body { background: linear-gradient(160deg, #f0f4ff 0%, #f8faff 60%, #fff 100%); font-family: 'Inter', sans-serif; }
+
+        .account-page { padding: 40px 0 80px; min-height: calc(100vh - 130px); }
+
+        .account-layout { display: grid; grid-template-columns: 280px 1fr; gap: 24px; margin-top: 32px; }
+
+        /* ===== SIDEBAR ===== */
+        .account-sidebar {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.07);
+            overflow: hidden;
+            height: fit-content;
+            position: sticky;
+            top: 90px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .sidebar-header {
+            background: linear-gradient(135deg, #0f172a, #1a2744, #0f3460);
+            padding: 28px 20px;
+            text-align: center;
+            color: #fff;
+        }
+        .sidebar-avatar {
+            width: 72px; height: 72px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            margin: 0 auto 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px;
+            border: 3px solid rgba(255,255,255,0.3);
+        }
+        .sidebar-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+        .sidebar-role {
+            font-size: 12px;
+            background: rgba(255,255,255,0.15);
+            padding: 3px 12px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        .account-nav { padding: 12px; }
+        .account-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+            text-decoration: none;
+        }
+        .account-nav a i { width: 18px; text-align: center; font-size: 15px; }
+        .account-nav a:hover { background: #f0f7ff; color: #007bff; }
+        .account-nav a.active { background: linear-gradient(135deg, #007bff, #0056d2); color: #fff; box-shadow: 0 4px 12px rgba(0,123,255,0.3); }
+        .account-nav a.logout-btn { color: #e53935; }
+        .account-nav a.logout-btn:hover { background: #fff0f0; }
+        .nav-divider { height: 1px; background: #f0f4ff; margin: 8px 0; }
+
+        /* ===== CONTENT ===== */
+        .account-content {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .content-header {
+            padding: 22px 28px;
+            border-bottom: 1px solid #f0f4ff;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .content-header-icon {
+            width: 42px; height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #007bff, #0056d2);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 17px;
+            box-shadow: 0 4px 12px rgba(0,123,255,0.25);
+        }
+        .content-header h2 { font-size: 18px; font-weight: 700; color: #1a1a2e; }
+        .content-header p { font-size: 13px; color: #999; margin-top: 2px; }
+        .content-body { padding: 28px; }
+
+        /* Info section */
+        .info-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .info-item {
+            background: #f8faff;
+            border: 1.5px solid #e8eef8;
+            border-radius: 14px;
+            padding: 16px 18px;
+        }
+        .info-item-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .info-item-label i { color: #007bff; }
+        .info-item-value { font-size: 15px; font-weight: 600; color: #1a1a2e; }
+
+        /* Order section */
+        .order-stats { display: flex; gap: 12px; margin-bottom: 24px; }
+        .order-stat-card {
+            flex: 1;
+            background: linear-gradient(135deg, #f0f7ff, #e8f2ff);
+            border: 1.5px solid #c7deff;
+            border-radius: 14px;
+            padding: 16px;
+            text-align: center;
+        }
+        .order-stat-num { font-size: 26px; font-weight: 800; color: #007bff; }
+        .order-stat-label { font-size: 12px; color: #666; margin-top: 3px; }
+
+        .order-table { width: 100%; border-collapse: collapse; }
+        .order-table thead tr { background: linear-gradient(135deg, #f8faff, #f0f4ff); }
+        .order-table th {
+            padding: 13px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            text-align: left;
+            border-bottom: 2px solid #e8eef8;
+        }
+        .order-table td { padding: 14px 16px; border-bottom: 1px solid #f0f4ff; font-size: 13.5px; }
+        .order-table tbody tr { transition: background 0.2s; animation: row-in 0.3s ease both; }
+        .order-table tbody tr:hover { background: #fafcff; }
+        .order-table tbody tr:last-child td { border-bottom: none; }
+
+        @keyframes row-in {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .order-id { font-family: 'Courier New', monospace; font-weight: 700; color: #007bff; font-size: 12px; }
+        .order-total { font-weight: 700; color: #e53935; }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .status-pending { background: #fff8e7; color: #d97706; border: 1px solid #fcd34d; }
+        .status-done    { background: #f0fdf4; color: #16a34a; border: 1px solid #86efac; }
+        .status-cancel  { background: #fff0f0; color: #e53935; border: 1px solid #fca5a5; }
+
+        .empty-orders {
+            text-align: center;
+            padding: 60px 20px;
+            color: #aaa;
+        }
+        .empty-orders i { font-size: 56px; margin-bottom: 16px; display: block; color: #dde; }
+        .empty-orders h3 { font-size: 18px; color: #555; margin-bottom: 8px; }
+        .empty-orders p { font-size: 14px; margin-bottom: 20px; }
+        .empty-orders a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 24px;
+            background: linear-gradient(135deg, #007bff, #0056d2);
+            color: #fff;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(0,123,255,0.25);
+            transition: all 0.25s;
+        }
+        .empty-orders a:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,123,255,0.35); }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* Order detail expand */
+        .order-items-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+        .order-item-thumb {
+            width: 36px; height: 36px;
+            border-radius: 8px;
+            object-fit: contain;
+            background: #f0f7ff;
+            border: 1.5px solid #e8f0fe;
+            padding: 2px;
+        }
     </style>
 </head>
 <body>
@@ -34,6 +220,7 @@
         <div class="container header-container">
             <div class="logo"><a href="index.html">TECH<span>ZONE</span></a></div>
             <div class="header-actions">
+                <a href="index.html" class="action-btn"><i class="fas fa-home"></i> Trang chủ</a>
                 <a href="cart.html" class="action-btn"><i class="fas fa-shopping-cart"></i>Giỏ hàng<span id="cartCount" class="badge">0</span></a>
             </div>
         </div>
@@ -47,49 +234,126 @@
         </nav>
     </header>
 
-    <div class="container">
-        <div class="account-layout">
-            <div class="account-sidebar">
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <div style="width: 80px; height: 80px; background: #eee; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 30px; color: #aaa;">
-                        <i class="fas fa-user"></i>
+    <div class="account-page">
+        <div class="container">
+            <div class="account-layout">
+                <!-- Sidebar -->
+                <div class="account-sidebar">
+                    <div class="sidebar-header">
+                        <div class="sidebar-avatar"><i class="fas fa-user"></i></div>
+                        <div class="sidebar-name" id="sidebarName">Người dùng</div>
+                        <span class="sidebar-role">Thành viên</span>
                     </div>
-                    <h3 id="sidebarName">Người dùng</h3>
+                    <nav class="account-nav">
+                        <a href="#" class="active" id="tabInfo" onclick="switchTab('info', this)">
+                            <i class="fas fa-id-card"></i> Thông tin tài khoản
+                        </a>
+                        <a href="#" id="tabOrders" onclick="switchTab('orders', this)">
+                            <i class="fas fa-box-open"></i> Đơn hàng của tôi
+                            <span id="orderBadge" style="margin-left:auto; background:#e53935; color:#fff; font-size:11px; padding:2px 7px; border-radius:20px; display:none;"></span>
+                        </a>
+                        <div class="nav-divider"></div>
+                        <a href="#" id="btnLogout" class="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                        </a>
+                    </nav>
                 </div>
-                <ul class="account-nav">
-                    <li><a href="#" class="active" id="tabInfo">Thông tin tài khoản</a></li>
-                    <li><a href="#" id="tabOrders">Đơn hàng của tôi</a></li>
-                    <li><a href="#" id="btnLogout" style="color: var(--danger);"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
-                </ul>
-            </div>
 
-            <div class="account-content" id="contentInfo">
-                <h2>Thông tin cá nhân</h2>
-                <div class="info-group"><strong>Họ và tên:</strong> <span id="infoName"></span></div>
-                <div class="info-group"><strong>Email:</strong> <span id="infoEmail"></span></div>
-                <div class="info-group"><strong>Điện thoại:</strong> <span id="infoPhone"></span></div>
-                <button class="btn-fill" style="margin-top: 20px; padding: 10px 20px; font-size: 14px;">Cập nhật thông tin</button>
-            </div>
+                <!-- Content -->
+                <div class="account-content">
+                    <!-- Tab: Thông tin -->
+                    <div id="panelInfo" class="tab-panel active">
+                        <div class="content-header">
+                            <div class="content-header-icon"><i class="fas fa-id-card"></i></div>
+                            <div>
+                                <h2>Thông tin cá nhân</h2>
+                                <p>Quản lý thông tin hồ sơ của bạn</p>
+                            </div>
+                        </div>
+                        <div class="content-body">
+                            <div class="info-card">
+                                <div class="info-item">
+                                    <div class="info-item-label"><i class="fas fa-user"></i> Họ và tên</div>
+                                    <div class="info-item-value" id="infoName">—</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-item-label"><i class="fas fa-envelope"></i> Email</div>
+                                    <div class="info-item-value" id="infoEmail">—</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-item-label"><i class="fas fa-phone"></i> Số điện thoại</div>
+                                    <div class="info-item-value" id="infoPhone">—</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-item-label"><i class="fas fa-shield-alt"></i> Vai trò</div>
+                                    <div class="info-item-value" id="infoRole">Thành viên</div>
+                                </div>
+                            </div>
+                            <button class="btn-fill" onclick="switchTab('orders', document.getElementById('tabOrders'))"
+                                style="padding:12px 24px; font-size:14px; border-radius:12px; display:inline-flex; align-items:center; gap:8px;">
+                                <i class="fas fa-box-open"></i> Xem đơn hàng của tôi
+                            </button>
+                        </div>
+                    </div>
 
-            <div class="account-content" id="contentOrders" style="display: none;">
-                <h2>Lịch sử đơn hàng</h2>
-                <table class="order-table">
-                    <thead>
-                        <tr>
-                            <th>Mã ĐH</th>
-                            <th>Ngày đặt</th>
-                            <th>Tổng tiền</th>
-                            <th>Trạng thái</th>
-                        </tr>
-                    </thead>
-                    <tbody id="orderListBody">
-                        <!-- Injected by JS -->
-                    </tbody>
-                </table>
+                    <!-- Tab: Đơn hàng -->
+                    <div id="panelOrders" class="tab-panel">
+                        <div class="content-header">
+                            <div class="content-header-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <div>
+                                <h2>Lịch sử đơn hàng</h2>
+                                <p>Tất cả đơn hàng bạn đã đặt tại TECHZONE</p>
+                            </div>
+                        </div>
+                        <div class="content-body">
+                            <div class="order-stats" id="orderStats" style="display:none">
+                                <div class="order-stat-card">
+                                    <div class="order-stat-num" id="statTotal">0</div>
+                                    <div class="order-stat-label">Tổng đơn hàng</div>
+                                </div>
+                                <div class="order-stat-card" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);border-color:#86efac;">
+                                    <div class="order-stat-num" style="color:#16a34a" id="statDone">0</div>
+                                    <div class="order-stat-label">Hoàn thành</div>
+                                </div>
+                                <div class="order-stat-card" style="background:linear-gradient(135deg,#fff8e7,#fef3c7);border-color:#fcd34d;">
+                                    <div class="order-stat-num" style="color:#d97706" id="statPending">0</div>
+                                    <div class="order-stat-label">Đang xử lý</div>
+                                </div>
+                            </div>
+
+                            <div id="orderListWrap">
+                                <table class="order-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã đơn hàng</th>
+                                            <th>Sản phẩm</th>
+                                            <th>Ngày đặt</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="orderListBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
+    <script>
+    function switchTab(tab, el) {
+        event && event.preventDefault();
+        document.querySelectorAll('.account-nav a').forEach(a => a.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        if (el) el.classList.add('active');
+        document.getElementById('panel' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+        if (tab === 'orders') renderOrders();
+    }
+    </script>
     <script src="js/data.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/account.js"></script>
